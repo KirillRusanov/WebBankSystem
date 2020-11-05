@@ -4,6 +4,7 @@ import banksystem.dao.DAO;
 import banksystem.entity.Card;
 import banksystem.entity.Client;
 import banksystem.entity.Count;
+import banksystem.utils.HibernateUtil;
 
 import java.sql.Date;
 import java.util.List;
@@ -44,43 +45,28 @@ public class Menu {
     }
 
     public static void createMenu() {
-        System.out.println("Creating the starter kit");
-        System.out.println("Create an client account...");
-        Client client = new Client();
-        System.out.println("Input name");
-        client.setName(scanner.next());
-        System.out.println("Input surname");
-        client.setSurname(scanner.next());
-        System.out.println("Input patronymic");
-        client.setPatronymic(scanner.next());
-        System.out.println("Input address");
-        client.setAddress(scanner.next());
-        System.out.println("Input pass number");
-        client.setPass_number(scanner.next());
-        System.out.println("Input phone number");
-        client.setPhone_number(scanner.next());
-        client.setBirthday(new Date(123123324L));
-        DAO.create(client);
-        System.out.println("Create an count...");
-        Count count = new Count();
-        System.out.println("Input number");
-        count.setNumber(scanner.next());
-        System.out.println("Input currency");
-        count.setCurrency(scanner.next());
-        System.out.println("Input start balance");
-        count.setBalance(scanner.nextInt());
-        count.setClient(client);
-        DAO.create(count);
-        System.out.println("Create an card...");
-        Card card = new Card();
-        System.out.println("Input number card");
-        card.setNumber(scanner.next());
-        System.out.println("Input number pin");
-        card.setPin(scanner.next());
-        card.setTerm(new Date(1924L));
-        card.setCount(count);
-        DAO.create(card);
-        selectionMenu();
+        System.out.println("What create: \n" +
+                "1 - clients\n" +
+                "2 - counts\n" +
+                "3 - cards");
+        switch (scanner.nextInt()) {
+            case 1:
+                DAO.save(createClient());
+                selectionMenu();
+                break;
+            case 2:
+                System.out.println("Input id client by which create: ");
+                Client client = DAO.read(Client.class, scanner.nextLong());
+                DAO.save(createCount(client));
+                selectionMenu();
+                break;
+            case 3:
+                System.out.println("Input id count by which create: ");
+                Count count = DAO.read(Count.class, scanner.nextLong());
+                DAO.save(createCard(count));
+                selectionMenu();
+                break;
+        }
     }
 
     public static void readMenu() {
@@ -90,7 +76,7 @@ public class Menu {
                 "3 - cards");
         switch (scanner.nextInt()) {
             case 1:
-                System.out.println("Введите id:");
+                System.out.println("Input id:");
                 Client client = DAO.read(Client.class, scanner.nextLong());
                 System.out.print(client.getName() + " ");
                 System.out.print(client.getSurname() + " ");
@@ -100,16 +86,16 @@ public class Menu {
                 selectionMenu();
                 break;
             case 2:
-                System.out.println("Введите id:");
+                System.out.println("Input id:");
                 Count count = DAO.read(Count.class, scanner.nextLong());
                 System.out.print(count.getBalance() + " ");
                 System.out.print(count.getNumber() + " ");
                 System.out.print(count.getCurrency() + " ");
-                System.out.println(count.getClient());
+                System.out.println(count.getClient_id());
                 selectionMenu();
                 break;
             case 3:
-                System.out.println("Введите id:");
+                System.out.println("Input id:");
                 Card card = DAO.read(Card.class, scanner.nextLong());
                 System.out.print(card.getNumber() + " ");
                 System.out.println(card.getPin());
@@ -223,5 +209,46 @@ public class Menu {
                 selectionMenu();
                 break;
         }
+    }
+    public static Client createClient() {
+        System.out.println("Create an client account...");
+        Client client = new Client();
+        System.out.println("Input name");
+        client.setName(scanner.next());
+        System.out.println("Input surname");
+        client.setSurname(scanner.next());
+        System.out.println("Input patronymic");
+        client.setPatronymic(scanner.next());
+        System.out.println("Input address");
+        client.setAddress(scanner.next());
+        System.out.println("Input pass number");
+        client.setPass_number(scanner.next());
+        System.out.println("Input phone number");
+        client.setPhone_number(scanner.next());
+        client.setBirthday(new Date(123123324L));
+        return client;
+    }
+    public static Count createCount(Client client) {
+        System.out.println("Create an count...");
+        Count count = new Count();
+        System.out.println("Input number");
+        count.setNumber(scanner.next());
+        count.setClient_id(client);
+        System.out.println("Input currency");
+        count.setCurrency(scanner.next());
+        System.out.println("Input start balance");
+        count.setBalance(scanner.nextInt());
+        return count;
+    }
+    public static Card createCard(Count count) {
+        System.out.println("Create an card...");
+        Card card = new Card();
+        System.out.println("Input number card");
+        card.setNumber(scanner.next());
+        System.out.println("Input number pin");
+        card.setPin(scanner.next());
+        card.setTerm(new Date(1924L));
+        card.setCount(count);
+        return card;
     }
 }

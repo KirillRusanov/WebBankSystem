@@ -18,15 +18,15 @@ public class Count {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
-    private Integer id;
+    private Long id;
 
     @Basic
     @Column(name = "number", nullable = false)
     private String number;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "client", nullable = false)
-    private Client client;
+    @JoinColumn(name = "client_id", nullable = false)
+    private Client client_id;
 
     @Basic
     @Column(name = "balance", nullable = false)

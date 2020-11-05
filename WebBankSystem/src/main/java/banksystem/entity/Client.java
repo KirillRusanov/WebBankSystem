@@ -48,6 +48,6 @@ public class Client {
     @Column(name = "phone_number", nullable = false)
     private String phone_number;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "client", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "client_id", cascade = CascadeType.ALL)
     private List<Count> counts;
 }

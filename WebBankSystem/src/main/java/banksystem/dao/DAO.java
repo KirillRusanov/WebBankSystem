@@ -15,7 +15,7 @@ public class DAO {
 
     private SessionFactory sessionFactory;
 
-    public <T> void create(final T o){
+    public <T> void save(final T o){
         Session session = sessionFactory.openSession();
         session.save(o);
         session.beginTransaction().commit();
