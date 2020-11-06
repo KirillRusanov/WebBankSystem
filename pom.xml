@@ -8,7 +8,6 @@
     <artifactId>Web.BankSystem</artifactId>
     <version>1.0</version>
 
-
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
