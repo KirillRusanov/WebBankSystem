@@ -112,7 +112,8 @@ public class Menu {
                 "3 - cards");
         switch (scanner.nextInt()) {
             case 1:
-                Client client = new Client();
+                System.out.println("Input id which want update");
+                Client client = DAO.read(Client.class, scanner.nextLong());
                 System.out.println("Input name");
                 client.setName(scanner.next());
                 System.out.println("Input surname");

@@ -30,8 +30,8 @@ public class DAO {
     }
 
     public <T> void update(final T o){
+        sessionFactory.openSession().close();
         Session session = sessionFactory.openSession();
-        session.beginTransaction();
         session.saveOrUpdate(o);
         session.beginTransaction().commit();
         session.close();
