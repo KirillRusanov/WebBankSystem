@@ -4,7 +4,6 @@ import banksystem.dao.DAO;
 import banksystem.entity.Card;
 import banksystem.entity.Client;
 import banksystem.entity.Count;
-import banksystem.utils.HibernateUtil;
 
 import java.sql.Date;
 import java.util.List;
@@ -12,11 +11,20 @@ import java.util.Scanner;
 
 public class Menu {
 
-    public static final DAO DAO = new DAO(HibernateUtil.getSessionFactory());
+    public Menu() {
+        this.cardService = new CardService();
+        this.clientService = new ClientService();
+        this.countService = new CountService();
+        this.scanner = new Scanner(System.in);
+    }
 
-    public static final Scanner scanner = new Scanner(System.in);
+    private Scanner scanner;
+    private ClientService clientService;
+    private CountService countService;
+    private CardService cardService;
 
-    public static void selectionMenu() {
+
+    public void selectionMenu() {
         System.out.println("-----------\n" +
                 "BankSystem\n" +
                 "1 - Create\n" +
@@ -44,32 +52,32 @@ public class Menu {
         }
     }
 
-    public static void createMenu() {
+    public void createMenu() {
         System.out.println("What create: \n" +
                 "1 - clients\n" +
                 "2 - counts\n" +
                 "3 - cards");
         switch (scanner.nextInt()) {
             case 1:
-                DAO.save(createClient());
+                clientService.save(createClient());
                 selectionMenu();
                 break;
             case 2:
                 System.out.println("Input id client by which create: ");
-                Client client = DAO.read(Client.class, scanner.nextLong());
-                DAO.save(createCount(client));
+                Client client = clientService.read(scanner.nextLong());
+                countService.save(createCount(client));
                 selectionMenu();
                 break;
             case 3:
                 System.out.println("Input id count by which create: ");
-                Count count = DAO.read(Count.class, scanner.nextLong());
-                DAO.save(createCard(count));
+                Count count = countService.read(scanner.nextLong());
+                cardService.save(createCard(count));
                 selectionMenu();
                 break;
         }
     }
 
-    public static void readMenu() {
+    public void readMenu() {
         System.out.println("which load: \n" +
                 "1 - clients\n" +
                 "2 - counts\n" +
@@ -77,7 +85,7 @@ public class Menu {
         switch (scanner.nextInt()) {
             case 1:
                 System.out.println("Input id:");
-                Client client = DAO.read(Client.class, scanner.nextLong());
+                Client client = clientService.read(scanner.nextLong());
                 System.out.print(client.getName() + " ");
                 System.out.print(client.getSurname() + " ");
                 System.out.print(client.getAddress() + " ");
@@ -87,7 +95,7 @@ public class Menu {
                 break;
             case 2:
                 System.out.println("Input id:");
-                Count count = DAO.read(Count.class, scanner.nextLong());
+                Count count = countService.read(scanner.nextLong());
                 System.out.print(count.getBalance() + " ");
                 System.out.print(count.getNumber() + " ");
                 System.out.print(count.getCurrency() + " ");
@@ -96,7 +104,7 @@ public class Menu {
                 break;
             case 3:
                 System.out.println("Input id:");
-                Card card = DAO.read(Card.class, scanner.nextLong());
+                Card card = cardService.read(scanner.nextLong());
                 System.out.print(card.getNumber() + " ");
                 System.out.println(card.getPin());
                 selectionMenu();
@@ -105,7 +113,7 @@ public class Menu {
         }
     }
 
-    public static void updateMenu() {
+    public void updateMenu() {
         System.out.println("which update object: \n" +
                 "1 - clients\n" +
                 "2 - counts\n" +
@@ -113,7 +121,7 @@ public class Menu {
         switch (scanner.nextInt()) {
             case 1:
                 System.out.println("Input id which want update");
-                Client client = DAO.read(Client.class, scanner.nextLong());
+                Client client = clientService.read(scanner.nextLong());
                 System.out.println("Input name");
                 client.setName(scanner.next());
                 System.out.println("Input surname");
@@ -127,7 +135,7 @@ public class Menu {
                 System.out.println("Input phone number");
                 client.setPhone_number(scanner.next());
                 client.setBirthday(new Date(1924L));
-                DAO.update(client);
+                clientService.update(client);
                 break;
             case 2:
                 Count count = new Count();
@@ -137,7 +145,7 @@ public class Menu {
                 count.setCurrency(scanner.next());
                 System.out.println("Input start balance");
                 count.setBalance(scanner.nextInt());
-                DAO.update(count);
+                countService.update(count);
                 break;
             case 3:
                 Card card = new Card();
@@ -145,12 +153,12 @@ public class Menu {
                 card.setNumber(scanner.next());
                 System.out.println("Input number pin");
                 card.setPin(scanner.next());
-                DAO.update(card);
+                cardService.update(card);
                 break;
         }
     }
 
-    public static void removeMenu() {
+    public void removeMenu() {
         System.out.println("which delete: \n" +
                 "1 - clients\n" +
                 "2 - counts\n" +
@@ -158,20 +166,20 @@ public class Menu {
         switch (scanner.nextInt()) {
             case 1:
                 System.out.println("Which delete by ID");
-                Client client = DAO.read(Client.class, scanner.nextLong());
-                DAO.delete(client);
+                Client client = clientService.read(scanner.nextLong());
+                clientService.delete(client);
                 selectionMenu();
                 break;
             case 2:
                 System.out.println("Which delete by ID");
-                Count count = DAO.read(Count.class, scanner.nextLong());
-                DAO.delete(count);
+                Count count = countService.read(scanner.nextLong());
+                countService.delete(count);
                 selectionMenu();
                 break;
             case 3:
                 System.out.println("Which delete by ID");
-                Card card = DAO.read(Card.class, scanner.nextLong());
-                DAO.delete(card);
+                Card card = cardService.read(scanner.nextLong());
+                cardService.delete(card);
                 selectionMenu();
                 break;
         }
@@ -179,7 +187,7 @@ public class Menu {
 
     }
 
-    public static void getAll() {
+    public void getAll() {
 
         System.out.println("Get All:\n" +
                 "1 - clients\n" +
@@ -187,7 +195,7 @@ public class Menu {
                 "3 - cards");
         switch (scanner.nextInt()) {
             case 1:
-                List<Client> clients = DAO.getAll(Client.class);
+                List<Client> clients = clientService.getAll();
                 for (Client c : clients) {
                     System.out.print(c.getName());
                     System.out.println(" " + c.getSurname());
@@ -195,7 +203,7 @@ public class Menu {
                 selectionMenu();
                 break;
             case 2:
-                List<Count> counts = DAO.getAll(Count.class);
+                List<Count> counts = countService.getAll();
                 for (Count c : counts) {
                     System.out.print(c.getNumber());
                     System.out.println(" - Balance: " + c.getBalance());
@@ -203,7 +211,7 @@ public class Menu {
                 selectionMenu();
                 break;
             case 3:
-                List<Card> cardList = DAO.getAll(Card.class);
+                List<Card> cardList = cardService.getAll();
                 for (Card c : cardList) {
                     System.out.println(c.getNumber());
                 }
@@ -211,7 +219,7 @@ public class Menu {
                 break;
         }
     }
-    public static Client createClient() {
+    public Client createClient() {
         System.out.println("Create an client account...");
         Client client = new Client();
         System.out.println("Input name");
@@ -229,7 +237,7 @@ public class Menu {
         client.setBirthday(new Date(123123324L));
         return client;
     }
-    public static Count createCount(Client client) {
+    public Count createCount(Client client) {
         System.out.println("Create an count...");
         Count count = new Count();
         System.out.println("Input number");
@@ -241,7 +249,7 @@ public class Menu {
         count.setBalance(scanner.nextInt());
         return count;
     }
-    public static Card createCard(Count count) {
+    public Card createCard(Count count) {
         System.out.println("Create an card...");
         Card card = new Card();
         System.out.println("Input number card");
