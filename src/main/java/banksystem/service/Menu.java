@@ -1,6 +1,5 @@
 package banksystem.service;
 
-import banksystem.dao.DAO;
 import banksystem.entity.Card;
 import banksystem.entity.Client;
 import banksystem.entity.Count;
@@ -59,19 +58,19 @@ public class Menu {
                 "3 - cards");
         switch (scanner.nextInt()) {
             case 1:
-                clientService.save(createClient());
+                clientService.create(createClient());
                 selectionMenu();
                 break;
             case 2:
                 System.out.println("Input id client by which create: ");
-                Client client = clientService.read(scanner.nextLong());
-                countService.save(createCount(client));
+                Client client = clientService.getById(scanner.nextLong());
+                countService.create(createCount(client));
                 selectionMenu();
                 break;
             case 3:
                 System.out.println("Input id count by which create: ");
-                Count count = countService.read(scanner.nextLong());
-                cardService.save(createCard(count));
+                Count count = countService.getById(scanner.nextLong());
+                cardService.create(createCard(count));
                 selectionMenu();
                 break;
         }
@@ -85,7 +84,7 @@ public class Menu {
         switch (scanner.nextInt()) {
             case 1:
                 System.out.println("Input id:");
-                Client client = clientService.read(scanner.nextLong());
+                Client client = clientService.getById(scanner.nextLong());
                 System.out.print(client.getName() + " ");
                 System.out.print(client.getSurname() + " ");
                 System.out.print(client.getAddress() + " ");
@@ -95,7 +94,7 @@ public class Menu {
                 break;
             case 2:
                 System.out.println("Input id:");
-                Count count = countService.read(scanner.nextLong());
+                Count count = countService.getById(scanner.nextLong());
                 System.out.print(count.getBalance() + " ");
                 System.out.print(count.getNumber() + " ");
                 System.out.print(count.getCurrency() + " ");
@@ -104,7 +103,7 @@ public class Menu {
                 break;
             case 3:
                 System.out.println("Input id:");
-                Card card = cardService.read(scanner.nextLong());
+                Card card = cardService.getById(scanner.nextLong());
                 System.out.print(card.getNumber() + " ");
                 System.out.println(card.getPin());
                 selectionMenu();
@@ -121,7 +120,7 @@ public class Menu {
         switch (scanner.nextInt()) {
             case 1:
                 System.out.println("Input id which want update");
-                Client client = clientService.read(scanner.nextLong());
+                Client client = clientService.getById(scanner.nextLong());
                 System.out.println("Input name");
                 client.setName(scanner.next());
                 System.out.println("Input surname");
@@ -166,19 +165,19 @@ public class Menu {
         switch (scanner.nextInt()) {
             case 1:
                 System.out.println("Which delete by ID");
-                Client client = clientService.read(scanner.nextLong());
+                Client client = clientService.getById(scanner.nextLong());
                 clientService.delete(client);
                 selectionMenu();
                 break;
             case 2:
                 System.out.println("Which delete by ID");
-                Count count = countService.read(scanner.nextLong());
+                Count count = countService.getById(scanner.nextLong());
                 countService.delete(count);
                 selectionMenu();
                 break;
             case 3:
                 System.out.println("Which delete by ID");
-                Card card = cardService.read(scanner.nextLong());
+                Card card = cardService.getById(scanner.nextLong());
                 cardService.delete(card);
                 selectionMenu();
                 break;

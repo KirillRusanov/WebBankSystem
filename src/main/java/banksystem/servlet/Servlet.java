@@ -1,4 +1,4 @@
-package banksystem.servlets;
+package banksystem.servlet;
 import banksystem.entity.Client;
 import banksystem.service.ClientService;
 

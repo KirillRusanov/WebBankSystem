@@ -1,7 +1,7 @@
 package banksystem.service;
 
 import banksystem.entity.Count;
-import banksystem.repositories.CountRepository;
+import banksystem.repository.CountRepository;
 
 import java.util.List;
 
@@ -11,12 +11,15 @@ public class CountService {
         this.repository = new CountRepository();
     }
     private CountRepository repository;
-    public void save(Count o){
-        repository.save(o);
+
+    public void create(Count o){
+        repository.create(o);
     }
-    public Count read(Long id){
-        return repository.read(id);
+
+    public Count getById(Long id){
+        return (Count) repository.getById(id);
     }
+
     public void update(Count o){
         repository.update(o);
     }
@@ -25,7 +28,7 @@ public class CountService {
         repository.delete(o);
     }
 
-    public List<Count> getAll() {
+    public List getAll() {
         return repository.getAll();
     }
 

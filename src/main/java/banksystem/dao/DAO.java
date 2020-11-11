@@ -1,30 +1,36 @@
 package banksystem.dao;
 
-import com.sun.istack.NotNull;
+import banksystem.utils.HibernateUtil;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import java.util.List;
 
-public class DAO {
+public class DAO<R> {
 
-    public DAO(@NotNull final SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    private Class<R> entityClass;
+
+    public void setEntityClass(Class<R> entityClass) {
+        this.entityClass = entityClass;
     }
 
-    private SessionFactory sessionFactory;
+    private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
-    public <T> void save(final T o){
+    public DAO() {
+    }
+
+    public <T> void create(final T o){
+        System.out.println(sessionFactory.openSession());
         Session session = sessionFactory.openSession();
         session.save(o);
         session.beginTransaction().commit();
     }
 
-    public <T> T read(final Class<T> type, final Long id){
+    public R getById(final Long id){
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        T result = session.get(type, id);
+        R result = session.get(entityClass, id);
         session.close();
         return result;
     }
@@ -46,11 +52,10 @@ public class DAO {
         session.close();
     }
 
-
-    public <T> List<T> getAll(final Class<T> type) {
+    public <T> List<T> getAll() {
         final Session session = sessionFactory.openSession();
         session.beginTransaction();
-        final Criteria crit = session.createCriteria(type);
+        final Criteria crit = session.createCriteria(entityClass);
         return crit.list();
     }
 }

@@ -1,7 +1,7 @@
 package banksystem.service;
 
 import banksystem.entity.Card;
-import banksystem.repositories.CardRepository;
+import banksystem.repository.CardRepository;
 
 import java.util.List;
 
@@ -11,12 +11,15 @@ public class CardService {
         this.repository = new CardRepository();
     }
     private CardRepository repository;
-    public void save(Card o){
-        repository.save(o);
+
+    public void create(Card o){
+        repository.create(o);
     }
-    public Card read(Long id){
-        return repository.read(id);
+
+    public Card getById(Long id){
+        return (Card) repository.getById(id);
     }
+
     public void update(Card o){
         repository.update(o);
     }
@@ -25,7 +28,7 @@ public class CardService {
         repository.delete(o);
     }
 
-    public List<Card> getAll() {
+    public List getAll() {
         return repository.getAll();
     }
 

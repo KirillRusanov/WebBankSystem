@@ -1,7 +1,7 @@
 package banksystem.service;
 
 import banksystem.entity.Client;
-import banksystem.repositories.ClientRepository;
+import banksystem.repository.ClientRepository;
 
 import java.util.List;
 
@@ -11,12 +11,15 @@ public class ClientService {
         this.repository = new ClientRepository();
     }
     private ClientRepository repository;
-    public void save(Client o){
-        repository.save(o);
+
+    public void create(Client o){
+        repository.create(o);
     }
-    public Client read(Long id){
-        return repository.read(id);
+
+    public Client getById(Long id){
+        return (Client) repository.getById(id);
     }
+
     public void update(Client o){
         repository.update(o);
     }
@@ -25,7 +28,7 @@ public class ClientService {
         repository.delete(o);
     }
 
-    public List<Client> getAll() {
+    public List getAll() {
         return repository.getAll();
     }
 
