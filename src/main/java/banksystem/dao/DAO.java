@@ -11,14 +11,12 @@ public class DAO<R> {
 
     private Class<R> entityClass;
 
-    public void setEntityClass(Class<R> entityClass) {
+    public DAO(Class<R> entityClass) {
+        sessionFactory = HibernateUtil.getSessionFactory();
         this.entityClass = entityClass;
     }
 
-    private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-
-    public DAO() {
-    }
+    private SessionFactory sessionFactory;
 
     public <T> void create(final T o){
         System.out.println(sessionFactory.openSession());

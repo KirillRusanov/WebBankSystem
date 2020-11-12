@@ -5,6 +5,6 @@ import banksystem.entity.Count;
 
 public class CountRepository extends DAO<Count> {
     public CountRepository() {
-        setEntityClass(Count.class);
+        super(Count.class);
     }
 }
