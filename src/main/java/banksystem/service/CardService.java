@@ -17,7 +17,7 @@ public class CardService {
     }
 
     public Card getById(Long id){
-        return (Card) repository.getById(id);
+        return repository.getById(id);
     }
 
     public void update(Card o){

@@ -17,7 +17,7 @@ public class CountService {
     }
 
     public Count getById(Long id){
-        return (Count) repository.getById(id);
+        return repository.getById(id);
     }
 
     public void update(Count o){

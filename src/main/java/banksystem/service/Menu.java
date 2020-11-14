@@ -3,6 +3,7 @@ package banksystem.service;
 import banksystem.entity.Card;
 import banksystem.entity.Client;
 import banksystem.entity.Count;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.sql.Date;
 import java.util.List;
@@ -10,10 +11,13 @@ import java.util.Scanner;
 
 public class Menu {
 
+    ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+            "applicationContext.xml");
+
     public Menu() {
-        this.cardService = new CardService();
-        this.clientService = new ClientService();
-        this.countService = new CountService();
+        this.cardService = context.getBean("cardServiceBean", CardService.class);
+        this.clientService = context.getBean("clientServiceBean", ClientService.class);
+        this.countService = context.getBean("countServiceBean", CountService.class);
         this.scanner = new Scanner(System.in);
     }
 

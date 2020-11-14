@@ -17,7 +17,7 @@ public class ClientService {
     }
 
     public Client getById(Long id){
-        return (Client) repository.getById(id);
+        return repository.getById(id);
     }
 
     public void update(Client o){
