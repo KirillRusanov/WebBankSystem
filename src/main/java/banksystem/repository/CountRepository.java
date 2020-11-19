@@ -1,7 +1,7 @@
 package banksystem.repository;
 
 import banksystem.dao.DAO;
-import banksystem.entity.Count;
+import banksystem.model.Count;
 
 public class CountRepository extends DAO<Count> {
     public CountRepository() {

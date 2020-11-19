@@ -1,31 +1,29 @@
 package banksystem.service;
 
-import banksystem.entity.Card;
-import banksystem.entity.Client;
-import banksystem.entity.Count;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import banksystem.model.Card;
+import banksystem.model.Client;
+import banksystem.model.Count;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.sql.Date;
 import java.util.List;
 import java.util.Scanner;
-
+@Component
 public class Menu {
-
-    ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-            "applicationContext.xml");
-
-    public Menu() {
-        this.cardService = context.getBean("cardServiceBean", CardService.class);
-        this.clientService = context.getBean("clientServiceBean", ClientService.class);
-        this.countService = context.getBean("countServiceBean", CountService.class);
-        this.scanner = new Scanner(System.in);
-    }
 
     private Scanner scanner;
     private ClientService clientService;
     private CountService countService;
     private CardService cardService;
 
+    @Autowired
+    public Menu(CardService cardService, ClientService clientService, CountService countService) {
+        this.cardService = cardService;
+        this.clientService = clientService;
+        this.countService = countService;
+        this.scanner = new Scanner(System.in);
+    }
 
     public void selectionMenu() {
         System.out.println("-----------\n" +

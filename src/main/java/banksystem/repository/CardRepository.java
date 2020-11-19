@@ -1,7 +1,7 @@
 package banksystem.repository;
 
 import banksystem.dao.DAO;
-import banksystem.entity.Card;
+import banksystem.model.Card;
 
 public class CardRepository extends DAO<Card> {
     public CardRepository() {

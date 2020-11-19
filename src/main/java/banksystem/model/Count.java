@@ -1,4 +1,4 @@
-package banksystem.entity;
+package banksystem.model;
 
 import lombok.*;
 

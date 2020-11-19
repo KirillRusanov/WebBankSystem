@@ -1,10 +1,12 @@
 package banksystem.service;
 
-import banksystem.entity.Count;
+import banksystem.model.Count;
 import banksystem.repository.CountRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class CountService {
 
     public CountService() {

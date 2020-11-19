@@ -4,21 +4,24 @@ import banksystem.utils.HibernateUtil;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 
 import java.util.List;
-
 public class DAO<R> {
 
     private Class<R> entityClass;
-    private SessionFactory sessionFactory;
 
+    private SessionFactory sessionFactory;
     public DAO(Class<R> entityClass) {
         sessionFactory = HibernateUtil.getSessionFactory();
         this.entityClass = entityClass;
     }
 
     public <T> void create(final T o){
-        System.out.println(sessionFactory.openSession());
         Session session = sessionFactory.openSession();
         session.save(o);
         session.beginTransaction().commit();

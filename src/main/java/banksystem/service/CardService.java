@@ -1,10 +1,12 @@
 package banksystem.service;
 
-import banksystem.entity.Card;
+import banksystem.model.Card;
 import banksystem.repository.CardRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class CardService {
 
     public CardService() {

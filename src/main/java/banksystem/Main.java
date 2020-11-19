@@ -1,18 +1,17 @@
 package banksystem;
 
+import banksystem.repository.ClientRepository;
+import banksystem.service.CardService;
+import banksystem.service.ClientService;
+import banksystem.service.CountService;
 import banksystem.service.Menu;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 
 public class Main {
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-                "applicationContext.xml");
-
-        Menu menu = context.getBean("menuBean", Menu.class);
+        Menu menu = new Menu(new CardService(),new ClientService(new ClientRepository()), new CountService());
         menu.selectionMenu();
-
-
     }
 }

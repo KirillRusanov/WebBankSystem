@@ -1,16 +1,22 @@
 package banksystem.service;
 
-import banksystem.entity.Client;
+import banksystem.model.Client;
 import banksystem.repository.ClientRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ClientService {
 
-    public ClientService() {
-        this.repository = new ClientRepository();
-    }
+
     private ClientRepository repository;
+
+    @Autowired
+    public ClientService(ClientRepository repository) {
+        this.repository = repository;
+    }
 
     public void create(Client o){
         repository.create(o);
