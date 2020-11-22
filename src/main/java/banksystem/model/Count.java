@@ -1,40 +1,34 @@
 package banksystem.model;
 
-import lombok.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.List;
 
-@Data
-@ToString
-@EqualsAndHashCode
-@NoArgsConstructor
-@AllArgsConstructor
-
 @Entity
-@Table(name = "count", schema = "banksystem")
+@Table(name = "count")
+@Data
 public class Count {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
+    @Column(name = "id", nullable = false)
     private Long id;
 
-    @Basic
     @Column(name = "number", nullable = false)
     private String number;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "client_id", nullable = false)
-    private Client client_id;
-
-    @Basic
     @Column(name = "balance", nullable = false)
     private Integer balance;
 
-    @Basic
     @Column(name = "currency", nullable = false)
     private String currency;
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "client_id", nullable = false)
+    private Client client_id;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "count", cascade = CascadeType.ALL)
     private List<Card> cards;

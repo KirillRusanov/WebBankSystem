@@ -7,18 +7,16 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-
 import java.util.List;
+@Component
 public class DAO<R> {
 
     private Class<R> entityClass;
-
     private SessionFactory sessionFactory;
-    public DAO(Class<R> entityClass) {
+
+    @Autowired
+    public DAO() {
         sessionFactory = HibernateUtil.getSessionFactory();
-        this.entityClass = entityClass;
     }
 
     public <T> void create(final T o){
@@ -57,5 +55,9 @@ public class DAO<R> {
         session.beginTransaction();
         final Criteria crit = session.createCriteria(entityClass);
         return crit.list();
+    }
+
+    protected void setEntityClass(Class<R> entityClass) {
+        this.entityClass = entityClass;
     }
 }

@@ -7,6 +7,7 @@
     <groupId>Web.BankSystem</groupId>
     <artifactId>Web.BankSystem</artifactId>
     <version>1.0</version>
+    <packaging>war</packaging>
     <name>webapp</name>
 
     <properties>
@@ -14,7 +15,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <spring.version>5.2.1.RELEASE</spring.version>
-        <jackson.version>2.2.2</jackson.version>
+        <jackson.version>2.11.3</jackson.version>
     </properties>
 
     <dependencies>
@@ -50,12 +51,6 @@
             <version>${spring.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.thymeleaf</groupId>
-            <artifactId>thymeleaf-spring5</artifactId>
-            <version>3.0.11.RELEASE</version>
-        </dependency>
-
 <!--        HIBERNATE    -->
 
         <dependency>
@@ -84,18 +79,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>4.0.1</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet.jsp</groupId>
-            <artifactId>javax.servlet.jsp-api</artifactId>
-            <version>2.3.1</version>
-            <scope>provided</scope>
-        </dependency>
 
         <!-- Jackson JSON Mapper -->
         <dependency>

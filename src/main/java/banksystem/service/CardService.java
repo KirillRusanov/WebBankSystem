@@ -2,6 +2,7 @@ package banksystem.service;
 
 import banksystem.model.Card;
 import banksystem.repository.CardRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,10 +10,12 @@ import java.util.List;
 @Service
 public class CardService {
 
-    public CardService() {
-        this.repository = new CardRepository();
-    }
     private CardRepository repository;
+
+    @Autowired
+    public CardService(CardRepository cardRepository) {
+        this.repository = cardRepository;
+    }
 
     public void create(Card o){
         repository.create(o);

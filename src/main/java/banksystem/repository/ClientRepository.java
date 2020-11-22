@@ -9,6 +9,6 @@ import org.springframework.stereotype.Component;
 public class ClientRepository extends DAO<Client> {
     @Autowired
     public ClientRepository() {
-        super(Client.class);
+        setEntityClass(Client.class);
     }
 }

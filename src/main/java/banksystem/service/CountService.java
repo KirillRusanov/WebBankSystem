@@ -2,6 +2,7 @@ package banksystem.service;
 
 import banksystem.model.Count;
 import banksystem.repository.CountRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,10 +10,12 @@ import java.util.List;
 @Service
 public class CountService {
 
-    public CountService() {
-        this.repository = new CountRepository();
-    }
     private CountRepository repository;
+
+    @Autowired
+    public CountService(CountRepository countRepository) {
+        this.repository = countRepository;
+    }
 
     public void create(Count o){
         repository.create(o);
