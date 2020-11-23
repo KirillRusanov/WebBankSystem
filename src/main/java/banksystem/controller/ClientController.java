@@ -1,7 +1,9 @@
 package banksystem.controller;
 
+import banksystem.dao.ClientDTO;
 import banksystem.model.Client;
 import banksystem.service.ClientService;
+import banksystem.service.MapService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -13,17 +15,19 @@ public class ClientController {
 
     @Autowired
     private ClientService clientService;
+    @Autowired
+    private MapService mapService;
 
     @ResponseBody
     @GetMapping(value = "list")
     public List getClientList() {
-        return clientService.getAll();
+        return mapService.getAllClient();
     }
 
     @ResponseBody
     @GetMapping(value = "/{id}")
-    public Client getClientById(@PathVariable("id") Long id) {
-        return clientService.getById(id);
+    public ClientDTO getClientById(@PathVariable("id") Long id) {
+        return mapService.getClientById(clientService.getById(id));
     }
 
     @ResponseBody
