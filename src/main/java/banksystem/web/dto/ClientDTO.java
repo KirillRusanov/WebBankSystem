@@ -1,4 +1,4 @@
-package banksystem.dao;
+package banksystem.web.dto;
 
 import lombok.Data;
 import java.sql.Date;

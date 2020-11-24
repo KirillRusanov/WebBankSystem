@@ -1,7 +1,7 @@
 package banksystem.service;
 
-import banksystem.model.Count;
-import banksystem.repository.CountRepository;
+import banksystem.dao.model.Count;
+import banksystem.dao.repository.CountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

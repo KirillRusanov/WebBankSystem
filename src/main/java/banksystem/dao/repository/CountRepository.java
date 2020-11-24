@@ -1,7 +1,7 @@
-package banksystem.repository;
+package banksystem.dao.repository;
 
 import banksystem.dao.DAO;
-import banksystem.model.Count;
+import banksystem.dao.model.Count;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

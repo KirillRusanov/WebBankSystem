@@ -13,9 +13,9 @@
     <property name="hibernate.connection.useSSL">false</property>
     <property name="hibernate.enable_lazy_load_no_trans">true</property>
 
-    <mapping class="banksystem.model.Client"/>
-    <mapping class="banksystem.model.Count"/>
-    <mapping class="banksystem.model.Card"/>
+    <mapping class="banksystem.dao.model.Client"/>
+    <mapping class="banksystem.dao.model.Count"/>
+    <mapping class="banksystem.dao.model.Card"/>
 
   </session-factory>
 </hibernate-configuration>

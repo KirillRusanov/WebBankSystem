@@ -1,4 +1,4 @@
-package banksystem.utils;
+package banksystem.dao.utils;
 
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;

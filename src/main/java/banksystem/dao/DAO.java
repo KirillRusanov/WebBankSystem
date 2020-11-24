@@ -1,6 +1,6 @@
 package banksystem.dao;
 
-import banksystem.utils.HibernateUtil;
+import banksystem.dao.utils.HibernateUtil;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

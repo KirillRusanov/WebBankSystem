@@ -1,4 +1,4 @@
-package banksystem.model;
+package banksystem.dao.model;
 
 import lombok.Data;
 

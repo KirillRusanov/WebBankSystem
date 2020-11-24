@@ -1,7 +1,7 @@
 package banksystem.service;
 
-import banksystem.model.Card;
-import banksystem.repository.CardRepository;
+import banksystem.dao.model.Card;
+import banksystem.dao.repository.CardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

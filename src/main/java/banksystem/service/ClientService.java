@@ -1,7 +1,7 @@
 package banksystem.service;
 
-import banksystem.model.Client;
-import banksystem.repository.ClientRepository;
+import banksystem.dao.model.Client;
+import banksystem.dao.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
