@@ -13,18 +13,6 @@ public class CountMapper {
     // DTO
 
     public CountDTO convertToDTO(Count count) {
-        return initializationDTO(count);
-    }
-
-    public List<CountDTO> convertToDTO(List<Count> counts) {
-        List<CountDTO> countsDTO = new ArrayList<>();
-        for(Count count : counts) {
-            countsDTO.add(initializationDTO(count));
-        }
-        return countsDTO;
-    }
-
-    private CountDTO initializationDTO(Count count) {
         CountDTO countDTO = new CountDTO();
         countDTO.setId(count.getId());
         countDTO.setNumber(count.getNumber());
@@ -33,26 +21,30 @@ public class CountMapper {
         return countDTO;
     }
 
+    public List<CountDTO> convertToDTO(List<Count> counts) {
+        List<CountDTO> countsDTO = new ArrayList<>();
+        for(Count count : counts) {
+            countsDTO.add(convertToDTO(count));
+        }
+        return countsDTO;
+    }
+
     // ENTITY
 
     public Count convertToEntity(CountDTO countDTO) {
-        return initializationEntity(countDTO);
-    }
-
-    public List<Count> convertToEntity(List<CountDTO> countsDTO) {
-        List<Count> counts = new ArrayList<>();
-        for(CountDTO count : countsDTO) {
-            counts.add(initializationEntity(count));
-        }
-        return counts;
-    }
-
-    private Count initializationEntity(CountDTO countDTO) {
         Count count = new Count();
         count.setId(countDTO.getId());
         count.setNumber(countDTO.getNumber());
         count.setBalance(countDTO.getBalance());
         count.setCurrency(countDTO.getCurrency());
         return count;
+    }
+
+    public List<Count> convertToEntity(List<CountDTO> countsDTO) {
+        List<Count> counts = new ArrayList<>();
+        for(CountDTO count : countsDTO) {
+            counts.add(convertToEntity(count));
+        }
+        return counts;
     }
 }

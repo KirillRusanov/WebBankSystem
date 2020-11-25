@@ -14,18 +14,6 @@ public class ClientMapper {
     // DTO
 
     public ClientDTO convertToDTO(Client client) {
-        return initializationDTO(client);
-    }
-
-    public List<ClientDTO> convertToDTO(List<Client> clients) {
-        List<ClientDTO> clientsDTO = new ArrayList<>();
-        for(Client client : clients) {
-                clientsDTO.add(initializationDTO(client));
-        }
-        return clientsDTO;
-    }
-
-    private ClientDTO initializationDTO(Client client) {
         ClientDTO clientDTO = new ClientDTO();
         clientDTO.setId(client.getId());
         clientDTO.setName(client.getName());
@@ -38,21 +26,17 @@ public class ClientMapper {
         return clientDTO;
     }
 
+    public List<ClientDTO> convertToDTO(List<Client> clients) {
+        List<ClientDTO> clientsDTO = new ArrayList<>();
+        for(Client client : clients) {
+                clientsDTO.add(convertToDTO(client));
+        }
+        return clientsDTO;
+    }
+
     // ENTITY
 
     public Client convertToEntity(ClientDTO clientDTO) {
-        return initializationEntity(clientDTO);
-    }
-
-    public List<Client> convertToEntity(List<ClientDTO> clientsDTO) {
-        List<Client> clients = new ArrayList<>();
-        for(ClientDTO client : clientsDTO) {
-            clients.add(initializationEntity(client));
-        }
-        return clients;
-    }
-
-    private Client initializationEntity(ClientDTO clientDTO) {
         Client client = new Client();
         client.setId(clientDTO.getId());
         client.setName(clientDTO.getName());
@@ -63,5 +47,13 @@ public class ClientMapper {
         client.setPassNumber(clientDTO.getPassNumber());
         client.setPhoneNumber(clientDTO.getPhoneNumber());
         return client;
+    }
+
+    public List<Client> convertToEntity(List<ClientDTO> clientsDTO) {
+        List<Client> clients = new ArrayList<>();
+        for(ClientDTO client : clientsDTO) {
+            clients.add(convertToEntity(client));
+        }
+        return clients;
     }
 }
