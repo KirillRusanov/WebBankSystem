@@ -2,40 +2,12 @@ package banksystem.web.mapper;
 
 import banksystem.web.dto.ClientDTO;
 import banksystem.dao.model.Client;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Component
-public class ClientMapper {
+public class ClientMapper extends Mapper<ClientDTO, Client> {
 
-    // DTO
-
-    public ClientDTO convertToDTO(Client client) {
-        ClientDTO clientDTO = new ClientDTO();
-        clientDTO.setId(client.getId());
-        clientDTO.setName(client.getName());
-        clientDTO.setSurname(client.getSurname());
-        clientDTO.setPatronymic(client.getPatronymic());
-        clientDTO.setAddress(client.getAddress());
-        clientDTO.setBirthday(client.getBirthday());
-        clientDTO.setPassNumber(client.getPassNumber());
-        clientDTO.setPhoneNumber(client.getPhoneNumber());
-        return clientDTO;
-    }
-
-    public List<ClientDTO> convertToDTO(List<Client> clients) {
-        List<ClientDTO> clientsDTO = new ArrayList<>();
-        for(Client client : clients) {
-                clientsDTO.add(convertToDTO(client));
-        }
-        return clientsDTO;
-    }
-
-    // ENTITY
-
+    @Override
     public Client convertToEntity(ClientDTO clientDTO) {
         Client client = new Client();
         client.setId(clientDTO.getId());
@@ -49,11 +21,18 @@ public class ClientMapper {
         return client;
     }
 
-    public List<Client> convertToEntity(List<ClientDTO> clientsDTO) {
-        List<Client> clients = new ArrayList<>();
-        for(ClientDTO client : clientsDTO) {
-            clients.add(convertToEntity(client));
-        }
-        return clients;
+    @Override
+    public ClientDTO convertToDTO(Client Entity) {
+        ClientDTO clientDTO = new ClientDTO();
+        clientDTO.setId(Entity.getId());
+        clientDTO.setName(Entity.getName());
+        clientDTO.setSurname(Entity.getSurname());
+        clientDTO.setPatronymic(Entity.getPatronymic());
+        clientDTO.setAddress(Entity.getAddress());
+        clientDTO.setBirthday(Entity.getBirthday());
+        clientDTO.setPassNumber(Entity.getPassNumber());
+        clientDTO.setPhoneNumber(Entity.getPhoneNumber());
+        return clientDTO;
     }
+
 }
