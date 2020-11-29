@@ -13,13 +13,13 @@
 
     <context:component-scan base-package="banksystem"/>
     <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager"/>
+    <mvc:resources mapping="/**" location="/" />
     <bean id="contentNegotiationManager"
           class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
         <property name="favorPathExtension" value="false"/>
         <property name="favorParameter" value="true"/>
         <property name="ignoreAcceptHeader" value="false" />
     </bean>
-    <mvc:resources mapping="/**" location="/" />
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 
         <property name="prefix" value="/WEB-INF/views/"/>
