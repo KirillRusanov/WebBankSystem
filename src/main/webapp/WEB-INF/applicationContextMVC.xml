@@ -21,8 +21,26 @@
         <property name="ignoreAcceptHeader" value="false" />
     </bean>
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-
         <property name="prefix" value="/WEB-INF/views/"/>
         <property name="suffix" value=".html"/>
+    </bean>
+
+    <bean id="myDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://localhost:3306/banksystem?serverTimezone=UTC" />
+        <property name="username" value="root" />
+        <property name="password" value="maloi-26" />
+
+        <property name="connectionProperties">
+            <props>
+                <prop key="socketTimeout">10</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean class="liquibase.integration.spring.SpringLiquibase">
+        <property name="dataSource" ref="myDataSource" />
+        <property name="changeLog" value="classpath:db/changelog/db.changelog-master.xml"/>
+        <property name="contexts" value="dbBuildContext, dmlDevContext" />
     </bean>
 </beans>
