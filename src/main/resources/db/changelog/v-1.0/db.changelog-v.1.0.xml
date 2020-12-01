@@ -5,9 +5,23 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-
-    <include file="01-changeset-client-table.xml" relativeToChangelogFile="true"/>
-    <include file="10-changeset-count-table.xml" relativeToChangelogFile="true"/>
-    <include file="20-changeset-card-table.xml" relativeToChangelogFile="true"/>
+    <changeSet id="2" author="rus">
+        <sqlFile
+                dbms="mysql"
+                encoding="utf8"
+                endDelimiter="\nGO"
+                relativeToChangelogFile="true"
+                splitStatements="true"
+                stripComments="true"
+                path="create-tables.sql"/>
+        <sqlFile
+                dbms="mysql"
+                encoding="utf8"
+                endDelimiter="\nGO"
+                relativeToChangelogFile="true"
+                splitStatements="true"
+                stripComments="true"
+                path="autofilling-tables.sql"/>
+    </changeSet>
 
 </databaseChangeLog>
