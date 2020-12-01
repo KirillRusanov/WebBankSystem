@@ -2,28 +2,21 @@ package banksystem.web.mapper;
 
 import banksystem.dao.model.Count;
 import banksystem.web.dto.CountDTO;
+import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
-public class CountMapper extends Mapper<CountDTO, Count> {
+@Mapper
+public interface CountMapper {
+    CountMapper INSTANCE = Mappers.getMapper(CountMapper.class);
 
-    @Override
-    public CountDTO convertToDTO(Count count) {
-        CountDTO countDTO = new CountDTO();
-        countDTO.setId(count.getId());
-        countDTO.setNumber(count.getNumber());
-        countDTO.setBalance(count.getBalance());
-        countDTO.setCurrency(count.getCurrency());
-        return countDTO;
-    }
+    CountDTO convertToDTO(Count Entity);
 
-    @Override
-    public Count convertToEntity(CountDTO countDTO) {
-        Count count = new Count();
-        count.setId(countDTO.getId());
-        count.setNumber(countDTO.getNumber());
-        count.setBalance(countDTO.getBalance());
-        count.setCurrency(countDTO.getCurrency());
-        return count;
-    }
+    Count convertToEntity(CountDTO DTO);
+
+    List<CountDTO> convertToDTO(List<Count> Entity);
+
 }
