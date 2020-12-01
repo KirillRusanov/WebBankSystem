@@ -14,6 +14,14 @@
                 splitStatements="true"
                 stripComments="true"
                 path="10-create-count-table.sql"/>
+        <sqlFile
+                dbms="mysql"
+                encoding="utf8"
+                endDelimiter="\nGO"
+                relativeToChangelogFile="true"
+                splitStatements="true"
+                stripComments="true"
+                path="10-autofilling-count.sql"/>
         <rollback>
             <sqlFile
                     dbms="mysql"

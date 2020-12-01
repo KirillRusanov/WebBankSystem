@@ -14,6 +14,14 @@
                 splitStatements="true"
                 stripComments="true"
                 path="20-create-card-table.sql"/>
+        <sqlFile
+                dbms="mysql"
+                encoding="utf8"
+                endDelimiter="\nGO"
+                relativeToChangelogFile="true"
+                splitStatements="true"
+                stripComments="true"
+                path="20-autofilling-card.sql"/>
         <rollback>
             <sqlFile
                     dbms="mysql"

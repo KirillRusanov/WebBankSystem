@@ -25,6 +25,14 @@
                     path="01-drop-client-table.sql"/>
         </rollback>
     </changeSet>
-
-    
+    <changeSet id="10" author="rus">
+        <sqlFile
+                dbms="mysql"
+                encoding="utf8"
+                endDelimiter="\nGO"
+                relativeToChangelogFile="true"
+                splitStatements="true"
+                stripComments="true"
+                path="01-autofilling-client.sql"/>
+    </changeSet>
 </databaseChangeLog>
