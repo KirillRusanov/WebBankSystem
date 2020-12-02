@@ -1,11 +1,13 @@
 package banksystem.dao.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
+@Data
 @Table(name = "card")
 public class Card {
 
@@ -28,43 +30,4 @@ public class Card {
     @JoinColumn(name = "count_id", nullable = false)
     private Count count;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
-    }
-
-    public String getPin() {
-        return pin;
-    }
-
-    public void setPin(String pin) {
-        this.pin = pin;
-    }
-
-    public Date getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
-    }
-
-    public Count getCount() {
-        return count;
-    }
-
-    public void setCount(Count count) {
-        this.count = count;
-    }
 }
