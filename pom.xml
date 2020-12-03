@@ -18,6 +18,37 @@
         <jackson.version>2.11.3</jackson.version>
     </properties>
 
+    <profiles>
+        <profile>
+            <id>devKR</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <db.driverClassName>com.mysql.jdbc.Driver</db.driverClassName>
+                <db.url>jdbc:mysql://localhost:3306/banksystem?serverTimezone=UTC</db.url>
+                <db.username>root</db.username>
+                <db.password>maloi-26</db.password>
+            </properties>
+        </profile>
+        <profile>
+            <id>devRM</id>
+            <activation>
+                <!-- activate if system properties 'env=prod' -->
+                <property>
+                    <name>env</name>
+                    <value>prod</value>
+                </property>
+            </activation>
+            <properties>
+                <db.driverClassName>com.mysql.jdbc.Driver</db.driverClassName>
+                <db.url>jdbc:mysql://live01:3306/prod</db.url>
+                <db.username>mkyong</db.username>
+                <db.password>8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92</db.password>
+            </properties>
+        </profile>
+    </profiles>
+
     <dependencies>
 <!--        SPRING                                     -->
         <dependency>
@@ -131,6 +162,12 @@
                 </configuration>
             </plugin>
         </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
     </build>
 
 </project>
