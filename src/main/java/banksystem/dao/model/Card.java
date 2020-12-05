@@ -13,21 +13,21 @@ public class Card {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "number", nullable = false)
+    @Column(name = "number")
     private String number;
 
-    @Column(name = "pin", nullable = false)
+    @Column(name = "pin")
     private String pin;
 
-    @Column(name = "term", nullable = false)
+    @Column(name = "term")
     private Date birthday;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "count_id", nullable = false)
+    @JoinColumn(name = "count_id")
     private Count count;
 
 }

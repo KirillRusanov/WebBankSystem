@@ -43,4 +43,8 @@
         <property name="changeLog" value="classpath:db/changelog/db.changelog-master.xml"/>
         <property name="contexts" value="dbBuildContext, dmlDevContext" />
     </bean>
+
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="10000000"/>
+    </bean>
 </beans>

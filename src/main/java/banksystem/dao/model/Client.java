@@ -1,5 +1,6 @@
 package banksystem.dao.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -31,7 +32,7 @@ public class Client {
     @Column(name = "pass_number", nullable = false)
     private String passNumber;
 
-    @Column(name = "birthday", nullable = false)
+    @Column(name = "birthday")
     private Date birthday;
 
     @Column(name = "phone_number", nullable = false)

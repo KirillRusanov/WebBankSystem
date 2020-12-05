@@ -13,21 +13,21 @@ public class Count {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "number", nullable = false)
+    @Column(name = "number")
     private String number;
 
-    @Column(name = "balance", nullable = false)
+    @Column(name = "balance")
     private Integer balance;
 
-    @Column(name = "currency", nullable = false)
+    @Column(name = "currency")
     private String currency;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "client_id", nullable = false)
+    @JoinColumn(name = "client_id")
     private Client client_id;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "count", cascade = CascadeType.ALL)
