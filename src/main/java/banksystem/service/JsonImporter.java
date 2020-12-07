@@ -34,19 +34,17 @@ public class JsonImporter {
     private String path;
 
     @PostConstruct
-    public void init(){
+    public void init() {
         objectMapper = new ObjectMapper();
     }
 
-    public List importFromJson() throws IOException {
+    public void importFromJson() throws IOException {
         objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
-
         Client[] clients = objectMapper.readValue(new File(path), Client[].class);
         saveData(clients);
-        return Arrays.asList(clients);
     }
 
-    public List importFromJson(MultipartFile file) {
+    public void importFromJson(MultipartFile file) {
         objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
 
         if (!file.isEmpty()) {
@@ -54,17 +52,14 @@ public class JsonImporter {
                 byte[] bytes = file.getBytes();
                 Client[] clients = objectMapper.readValue(bytes, Client[].class);
                 saveData(clients);
-                return Arrays.asList(clients);
             } catch (Exception e) {
-                return null;
+                System.out.println(Arrays.toString(e.getStackTrace()));
             }
-        } else {
-            return null;
         }
     }
 
     private void saveData(Client[] clients) {
-        for(Client client : clients) {
+        for (Client client : clients) {
             List<Count> counts = client.getCounts();
             client.setCounts(null);
             clientService.create(client);
@@ -73,13 +68,11 @@ public class JsonImporter {
                 count.setCards(null);
                 count.setClient_id(client);
                 countService.create(count);
-                for(Card card : cards) {
+                for (Card card : cards) {
                     card.setCount(count);
                     cardService.create(card);
                 }
             }
         }
     }
-
-
 }

@@ -11,21 +11,19 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/api/json")
-public class ImporterController {
+public class ImportController {
 
     @Autowired
     private JsonImporter jsonImporter;
 
     @ResponseBody
-    @GetMapping(value = "import")
-    public List importFromJson() throws IOException {
-        return jsonImporter.importFromJson();
-    }
-
-    @ResponseBody
-    @PostMapping(value = "import-file", headers = "content-type=multipart/form-data")
-    public List importFromJsonFile(@RequestParam("file") MultipartFile file) {
-        return jsonImporter.importFromJson(file);
+    @PostMapping(value = "import", headers = "content-type=multipart/form-data")
+    public void importFromJsonFile(@RequestParam("file") MultipartFile file) throws IOException {
+        if(file.isEmpty()) {
+            jsonImporter.importFromJson();
+        } else {
+            jsonImporter.importFromJson(file);
+        }
     }
 
 
