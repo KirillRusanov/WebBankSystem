@@ -13,13 +13,13 @@ public class Card {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "number")
+    @Column(name = "number", nullable = false)
     private String number;
 
-    @Column(name = "pin")
+    @Column(name = "pin", nullable = false)
     private String pin;
 
     @Column(name = "term")

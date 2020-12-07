@@ -6,17 +6,20 @@ import banksystem.dao.model.Count;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.BufferedOutputStream;
+import javax.annotation.PostConstruct;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
+@PropertySource("classpath:/application.properties")
 @Component
-public class ParserJsonDataFromFileToPojo {
+public class JsonImporter {
 
     @Autowired
     private ClientService clientService;
@@ -25,34 +28,42 @@ public class ParserJsonDataFromFileToPojo {
     @Autowired
     private CountService countService;
 
-    ObjectMapper objectMapper = new ObjectMapper();
+    private ObjectMapper objectMapper;
 
-    public void parse() throws IOException {
+    @Value("${fileJson}")
+    private String path;
+
+    @PostConstruct
+    public void init(){
+        objectMapper = new ObjectMapper();
+    }
+
+    public List importFromJson() throws IOException {
         objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
 
-        Client[] clients = objectMapper.readValue(new File(
-                "D:\\GitHUB\\WebBankSystem\\src\\main\\resources\\data\\user.json"), Client[].class);
-        recordingToDatabase(clients);
-
+        Client[] clients = objectMapper.readValue(new File(path), Client[].class);
+        saveData(clients);
+        return Arrays.asList(clients);
     }
-    public String parse(MultipartFile file) {
+
+    public List importFromJson(MultipartFile file) {
         objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
 
         if (!file.isEmpty()) {
             try {
                 byte[] bytes = file.getBytes();
                 Client[] clients = objectMapper.readValue(bytes, Client[].class);
-                recordingToDatabase(clients);
-                return "You have successfully downloaded";
+                saveData(clients);
+                return Arrays.asList(clients);
             } catch (Exception e) {
-                return "You were unable to download";
+                return null;
             }
         } else {
-            return "Unsuccessful upload";
+            return null;
         }
     }
 
-    private void recordingToDatabase(Client[] clients) {
+    private void saveData(Client[] clients) {
         for(Client client : clients) {
             List<Count> counts = client.getCounts();
             client.setCounts(null);
@@ -69,4 +80,6 @@ public class ParserJsonDataFromFileToPojo {
             }
         }
     }
+
+
 }

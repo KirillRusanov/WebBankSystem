@@ -13,16 +13,16 @@ public class Count {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "number")
+    @Column(name = "number", nullable = false)
     private String number;
 
-    @Column(name = "balance")
+    @Column(name = "balance", nullable = false)
     private Integer balance;
 
-    @Column(name = "currency")
+    @Column(name = "currency", nullable = false)
     private String currency;
 
     @JsonIgnore
