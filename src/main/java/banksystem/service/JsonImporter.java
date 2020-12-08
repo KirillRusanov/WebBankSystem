@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 
@@ -40,8 +41,11 @@ public class JsonImporter {
 
     public void importFromJson() throws IOException {
         objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
-        Client[] clients = objectMapper.readValue(new File(path), Client[].class);
-        saveData(clients);
+        URL resource = JsonImporter.class.getClassLoader().getResource(path);
+        if (resource != null) {
+            Client[] clients = objectMapper.readValue(new File(resource.getFile()), Client[].class);
+            saveData(clients);
+        }
     }
 
     public void importFromJson(MultipartFile file) {
