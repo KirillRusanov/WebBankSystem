@@ -2,6 +2,7 @@ package banksystem.web.controller;
 
 import banksystem.service.JsonExporter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -22,12 +23,6 @@ public class ExportController {
     @ResponseBody
     @GetMapping(value = "")
     public ResponseEntity<InputStreamResource> exportToJson() throws IOException {
-        String fileName = "export.json";
-        HttpHeaders respHeaders = new HttpHeaders();
-        MediaType mediaType = new MediaType("text","json");
-        respHeaders.setContentType(mediaType);
-        respHeaders.setContentDispositionFormData("attachment", fileName);
-        InputStreamResource isr = jsonExporter.exportToJson(fileName);
-        return new ResponseEntity<InputStreamResource>(isr, respHeaders, HttpStatus.OK);
+        return jsonExporter.exportToJson();
     }
 }

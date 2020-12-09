@@ -40,14 +40,14 @@ public class CardController {
     @ResponseBody
     @PostMapping(value = "/create", produces = "application/json", consumes="application/json")
     public CardDTO addCard(@RequestBody CardDTO cardDTO) {
-        cardService.save(CardMapper.INSTANCE.convertToEntity(cardDTO));
+        cardService.saveOrUpdate(CardMapper.INSTANCE.convertToEntity(cardDTO));
         return cardDTO;
     }
 
     @ResponseBody
     @PostMapping(value = "/edit", produces = "application/json", consumes = "application/json")
     public CardDTO updateCard(@RequestBody CardDTO cardDTO) {
-        cardService.save(CardMapper.INSTANCE.convertToEntity(cardDTO));
+        cardService.saveOrUpdate(CardMapper.INSTANCE.convertToEntity(cardDTO));
         return cardDTO;
     }
 }

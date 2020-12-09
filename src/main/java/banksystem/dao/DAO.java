@@ -26,8 +26,7 @@ public class DAO<R> {
         }
     }
 
-    public <T> void save(final T o){
-//        sessionFactory.openSession().close();
+    public <T> void saveOrUpdate(final T o){
         try(Session session = sessionFactory.openSession()) {
             session.saveOrUpdate(o);
             session.beginTransaction().commit();
@@ -35,7 +34,6 @@ public class DAO<R> {
     }
 
     public void delete(final Object object){
-//        sessionFactory.openSession().close();
         try(Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.delete(object);

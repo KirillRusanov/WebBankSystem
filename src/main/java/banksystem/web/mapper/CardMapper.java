@@ -4,11 +4,9 @@ import banksystem.dao.model.Card;
 import banksystem.web.dto.CardDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
 @Mapper
 public interface CardMapper{
     CardMapper INSTANCE = Mappers.getMapper(CardMapper.class);

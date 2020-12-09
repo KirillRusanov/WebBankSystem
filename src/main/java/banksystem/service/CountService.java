@@ -17,8 +17,8 @@ public class CountService {
         this.repository = countRepository;
     }
 
-    public void save(Count o){
-        repository.save(o);
+    public void saveOrUpdate(Count o){
+        repository.saveOrUpdate(o);
     }
 
     public Count getById(Long id){

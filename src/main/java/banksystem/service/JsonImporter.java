@@ -66,15 +66,15 @@ public class JsonImporter {
         for (Client client : clients) {
             List<Count> counts = client.getCounts();
             client.setCounts(null);
-            clientService.save(client);
+            clientService.saveOrUpdate(client);
             for (Count count : counts) {
                 List<Card> cards = count.getCards();
                 count.setCards(null);
                 count.setClient_id(client);
-                countService.save(count);
+                countService.saveOrUpdate(count);
                 for (Card card : cards) {
                     card.setCount(count);
-                    cardService.save(card);
+                    cardService.saveOrUpdate(card);
                 }
             }
         }

@@ -17,8 +17,8 @@ public class CardService {
         this.repository = cardRepository;
     }
 
-    public void save(Card o){
-        repository.save(o);
+    public void saveOrUpdate(Card o){
+        repository.saveOrUpdate(o);
     }
 
     public Card getById(Long id){
