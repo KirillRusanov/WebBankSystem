@@ -31,7 +31,7 @@ public class JsonImporter {
 
     private ObjectMapper objectMapper;
 
-    @Value("${fileJson}")
+    @Value("${fileImport}")
     private String path;
 
     @PostConstruct
@@ -66,15 +66,15 @@ public class JsonImporter {
         for (Client client : clients) {
             List<Count> counts = client.getCounts();
             client.setCounts(null);
-            clientService.create(client);
+            clientService.save(client);
             for (Count count : counts) {
                 List<Card> cards = count.getCards();
                 count.setCards(null);
                 count.setClient_id(client);
-                countService.create(count);
+                countService.save(count);
                 for (Card card : cards) {
                     card.setCount(count);
-                    cardService.create(card);
+                    cardService.save(card);
                 }
             }
         }

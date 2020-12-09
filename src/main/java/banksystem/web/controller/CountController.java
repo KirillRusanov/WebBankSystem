@@ -40,14 +40,14 @@ public class CountController {
     @ResponseBody
     @PostMapping(value = "/create", produces = "application/json", consumes="application/json")
     public CountDTO addCount(@RequestBody CountDTO countDTO) {
-        countService.create(CountMapper.INSTANCE.convertToEntity(countDTO));
+        countService.save(CountMapper.INSTANCE.convertToEntity(countDTO));
         return countDTO;
     }
 
     @ResponseBody
     @PostMapping(value = "/edit", produces = "application/json", consumes = "application/json")
     public CountDTO updateCount(@RequestBody CountDTO countDTO) {
-        countService.update(CountMapper.INSTANCE.convertToEntity(countDTO));
+        countService.save(CountMapper.INSTANCE.convertToEntity(countDTO));
         return countDTO;
     }
 }

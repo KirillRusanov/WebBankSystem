@@ -19,42 +19,36 @@ public class DAO<R> {
         sessionFactory = HibernateUtil.getSessionFactory();
     }
 
-    public <T> void create(final T o){
-        Session session = sessionFactory.openSession();
-        session.save(o);
-        session.beginTransaction().commit();
-    }
-
     public R getById(final Long id){
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        R result = session.get(entityClass, id);
-        session.close();
-        return result;
+        try(Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            return session.get(entityClass, id);
+        }
     }
 
-    public <T> void update(final T o){
-        sessionFactory.openSession().close();
-        Session session = sessionFactory.openSession();
-        session.saveOrUpdate(o);
-        session.beginTransaction().commit();
-        session.close();
+    public <T> void save(final T o){
+//        sessionFactory.openSession().close();
+        try(Session session = sessionFactory.openSession()) {
+            session.saveOrUpdate(o);
+            session.beginTransaction().commit();
+        }
     }
 
     public void delete(final Object object){
-        sessionFactory.openSession().close();
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        session.delete(object);
-        session.getTransaction().commit();
-        session.close();
+//        sessionFactory.openSession().close();
+        try(Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.delete(object);
+            session.getTransaction().commit();
+        }
     }
 
     public <T> List<T> getAll() {
-        final Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        final Criteria crit = session.createCriteria(entityClass);
-        return crit.list();
+        try(Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            final Criteria crit = session.createCriteria(entityClass);
+            return crit.list();
+        }
     }
 
     protected void setEntityClass(Class<R> entityClass) {

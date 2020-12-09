@@ -7,17 +7,16 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.List;
 
 @Controller
-@RequestMapping("/api/json")
+@RequestMapping("/api/import")
 public class ImportController {
 
     @Autowired
     private JsonImporter jsonImporter;
 
     @ResponseBody
-    @PostMapping(value = "import", headers = "content-type=multipart/form-data")
+    @PostMapping(value = "", headers = "content-type=multipart/form-data")
     public void importFromJsonFile(@RequestParam("file") MultipartFile file) throws IOException {
         if(file.isEmpty()) {
             jsonImporter.importFromJson();
@@ -25,6 +24,4 @@ public class ImportController {
             jsonImporter.importFromJson(file);
         }
     }
-
-
 }

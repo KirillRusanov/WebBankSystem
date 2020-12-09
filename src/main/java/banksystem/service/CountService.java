@@ -17,16 +17,12 @@ public class CountService {
         this.repository = countRepository;
     }
 
-    public void create(Count o){
-        repository.create(o);
+    public void save(Count o){
+        repository.save(o);
     }
 
     public Count getById(Long id){
         return repository.getById(id);
-    }
-
-    public void update(Count o){
-        repository.update(o);
     }
 
     public void delete(Object o){

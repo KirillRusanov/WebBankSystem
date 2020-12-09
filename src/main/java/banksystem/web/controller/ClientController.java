@@ -40,14 +40,14 @@ public class ClientController {
     @ResponseBody
     @PostMapping(value = "/create", produces = "application/json", consumes="application/json")
     public ClientDTO addClient(@RequestBody ClientDTO clientDTO) {
-        clientService.create(ClientMapper.INSTANCE.convertToEntity(clientDTO));
+        clientService.save(ClientMapper.INSTANCE.convertToEntity(clientDTO));
         return clientDTO;
     }
 
     @ResponseBody
     @PostMapping(value = "/edit", produces = "application/json", consumes = "application/json")
     public ClientDTO updateClient(@RequestBody ClientDTO clientDTO) {
-        clientService.update(ClientMapper.INSTANCE.convertToEntity(clientDTO));
+        clientService.save(ClientMapper.INSTANCE.convertToEntity(clientDTO));
         return clientDTO;
     }
 }

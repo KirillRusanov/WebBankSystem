@@ -1,8 +1,10 @@
 package banksystem.web.dto;
 
+import banksystem.dao.model.Count;
 import lombok.Data;
 
 import java.sql.Date;
+import java.util.List;
 
 @Data
 public class ClientDTO {
@@ -15,4 +17,5 @@ public class ClientDTO {
     private String passNumber;
     private Date birthday;
     private String phoneNumber;
+    private List<Count> counts;
 }

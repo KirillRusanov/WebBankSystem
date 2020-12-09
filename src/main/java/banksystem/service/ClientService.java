@@ -17,16 +17,12 @@ public class ClientService {
         this.repository = repository;
     }
 
-    public void create(Client o){
-        repository.create(o);
+    public void save(Client o){
+        repository.save(o);
     }
 
     public Client getById(Long id){
         return repository.getById(id);
-    }
-
-    public void update(Client o){
-        repository.update(o);
     }
 
     public void delete(Object o){

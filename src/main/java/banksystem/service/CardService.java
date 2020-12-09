@@ -17,16 +17,12 @@ public class CardService {
         this.repository = cardRepository;
     }
 
-    public void create(Card o){
-        repository.create(o);
+    public void save(Card o){
+        repository.save(o);
     }
 
     public Card getById(Long id){
         return repository.getById(id);
-    }
-
-    public void update(Card o){
-        repository.update(o);
     }
 
     public void delete(Object o){
