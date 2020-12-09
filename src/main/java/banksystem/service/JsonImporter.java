@@ -31,7 +31,7 @@ public class JsonImporter {
 
     private ObjectMapper objectMapper;
 
-    @Value("${fileImport}")
+    @Value("${import.path}")
     private String path;
 
     @PostConstruct

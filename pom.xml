@@ -29,12 +29,13 @@
                 <db.url>jdbc:mysql://localhost:3306/banksystem?serverTimezone=UTC</db.url>
                 <db.username>root</db.username>
                 <db.password>maloi-26</db.password>
+                <import.path>import.json</import.path>
+                <export.filename>file.json</export.filename>
             </properties>
         </profile>
         <profile>
             <id>devRM</id>
             <activation>
-                <!-- activate if system properties 'env=prod' -->
                 <property>
                     <name>env</name>
                     <value>prod</value>
@@ -45,6 +46,8 @@
                 <db.url>jdbc:mysql://live01:3306/prod</db.url>
                 <db.username>mkyong</db.username>
                 <db.password>8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92</db.password>
+                <import.path>import.json</import.path>
+                <export.filename>file.json</export.filename>
             </properties>
         </profile>
     </profiles>
