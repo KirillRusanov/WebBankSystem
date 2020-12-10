@@ -12,6 +12,7 @@
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <context:component-scan base-package="banksystem"/>
+
     <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager"/>
     <mvc:resources mapping="/**" location="/" />
     <bean id="contentNegotiationManager"
@@ -22,7 +23,7 @@
     </bean>
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/views/"/>
-        <property name="suffix" value=".html"/>
+        <property name="suffix" value=".jsp"/>
     </bean>
 
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">

@@ -8,6 +8,7 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 @Controller
@@ -21,9 +22,12 @@ public class ClientController {
 
     @ResponseBody
     @GetMapping(value = "list")
-    public List getClientList() {
+    public ModelAndView getClientList(ModelAndView model) {
         List clients = clientService.getAll();
-        return clientMapper.convertToDTO(clients);
+        model.addObject("clientList", clients);
+        model.setViewName("clients");
+        return model;
+//        return clientMapper.convertToDTO(clients);
     }
 
     @ResponseBody
