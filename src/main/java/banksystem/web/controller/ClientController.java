@@ -20,20 +20,20 @@ public class ClientController {
 
     private ClientMapper clientMapper = Mappers.getMapper(ClientMapper.class);
 
-    @ResponseBody
-    @GetMapping(value = "list")
+    @GetMapping(value = "/list")
     public ModelAndView getClientList(ModelAndView model) {
         List clients = clientService.getAll();
         model.addObject("clientList", clients);
         model.setViewName("clients");
         return model;
-//        return clientMapper.convertToDTO(clients);
     }
 
-    @ResponseBody
     @GetMapping(value = "/{id}")
-    public ClientDTO getClientById(@PathVariable("id") Long id) {
-        return clientMapper.convertToDTO(clientService.getById(id));
+    public ModelAndView getClientById(@PathVariable("id") Long id, ModelAndView model) {
+        ClientDTO client = clientMapper.convertToDTO(clientService.getById(id));
+        model.addObject("countList", client.getCounts());
+        model.setViewName("showPersonalCounts");
+        return model;
     }
 
     @ResponseBody
