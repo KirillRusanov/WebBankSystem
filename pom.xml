@@ -25,7 +25,7 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <db.driverClassName>com.mysql.jdbc.Driver</db.driverClassName>
+                <db.driverClassName>com.mysql.cj.jdbc.Driver</db.driverClassName>
                 <db.url>jdbc:mysql://localhost:3306/banksystem?serverTimezone=UTC</db.url>
                 <db.username>root</db.username>
                 <db.password>maloi-26</db.password>
@@ -42,7 +42,7 @@
                 </property>
             </activation>
             <properties>
-                <db.driverClassName>com.mysql.jdbc.Driver</db.driverClassName>
+                <db.driverClassName>com.mysql.cj.jdbc.Driver</db.driverClassName>
                 <db.url>jdbc:mysql://live01:3306/prod</db.url>
                 <db.username>mkyong</db.username>
                 <db.password>8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92</db.password>
@@ -149,9 +149,22 @@
                 <artifactId>liquibase-maven-plugin</artifactId>
                 <version>4.2.0</version>
                 <configuration>
-                    <changeLogFile>db/changelog/db.changelog-master.xml</changeLogFile>
                     <propertyFile>src/main/resources/liquibase.properties</propertyFile>
+                    <dropFirst>true</dropFirst>
+                    <driver>com.mysql.cj.jdbc.Driver</driver>
+                    <url>${db.url}</url>
+                    <username>${db.username}</username>
+                    <password>${db.password}</password>
+                    <defaultSchemaName>banksystem</defaultSchemaName>
                 </configuration>
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>update</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
