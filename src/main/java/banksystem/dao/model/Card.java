@@ -23,7 +23,7 @@ public class Card {
     private String pin;
 
     @Column(name = "term")
-    private Date birthday;
+    private Date term;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})

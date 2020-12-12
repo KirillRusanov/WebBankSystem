@@ -1,6 +1,5 @@
 package banksystem.dao;
 
-import banksystem.dao.utils.HibernateUtil;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -12,12 +11,8 @@ import java.util.List;
 public class DAO<R> {
 
     private Class<R> entityClass;
-    private SessionFactory sessionFactory;
-
     @Autowired
-    public DAO() {
-        sessionFactory = HibernateUtil.getSessionFactory();
-    }
+    private SessionFactory sessionFactory;
 
     public R getById(final Long id){
         try(Session session = sessionFactory.openSession()) {

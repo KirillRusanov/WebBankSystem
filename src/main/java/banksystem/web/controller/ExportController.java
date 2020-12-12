@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.IOException;
 
@@ -17,13 +18,11 @@ public class ExportController {
 
     @Autowired
     private JsonExporter jsonExporter;
-    @Autowired
-    private ResponseEntityConverter responseEntityConverter;
 
     @ResponseBody
     @GetMapping(value = "")
     public ResponseEntity<InputStreamResource> exportToJson() throws IOException {
         File file = jsonExporter.exportToJson();
-        return responseEntityConverter.convertToResponseEntity(file);
+        return ResponseEntityConverter.convertToResponseEntity(file);
     }
 }

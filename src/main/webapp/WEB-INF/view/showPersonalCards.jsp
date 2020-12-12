@@ -12,12 +12,14 @@
     <th>Id</th>
     <th>Number</th>
     <th>Pin</th>
+    <th>Term</th>
 
     <c:forEach var="card" items="${cardList}" varStatus="status">
         <tr>
             <td>${status.index + 1}</td>
             <td>${card.number}</td>
             <td>${card.pin}</td>
+            <td>${card.term}</td>
         </tr>
     </c:forEach>
 </table>

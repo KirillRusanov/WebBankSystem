@@ -14,6 +14,7 @@
     <th>Patronymic</th>
     <th>Address</th>
     <th>Pass number</th>
+    <th>Date Birth</th>
     <th>Phone number</th>
 
     <c:forEach var="client" items="${clientList}" varStatus="status">
@@ -24,6 +25,7 @@
             <td>${client.patronymic}</td>
             <td>${client.address}</td>
             <td>${client.passNumber}</td>
+            <td>${client.birthday}</td>
             <td>${client.phoneNumber}</td>
         </tr>
     </c:forEach>
