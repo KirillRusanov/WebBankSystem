@@ -1,7 +1,6 @@
 package banksystem.dao.utils;
 
 import liquibase.util.file.FilenameUtils;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -26,6 +25,6 @@ public class ResponseEntityConverter {
 
     private static MediaType defineMediaType(File file) {
         String format = FilenameUtils.getExtension(file.getName());
-        return new MediaType("text", format);
+        return new MediaType("all", format);
     }
 }

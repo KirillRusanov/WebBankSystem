@@ -3,7 +3,6 @@ package banksystem.web.controller;
 import banksystem.dao.model.Count;
 import banksystem.service.CountService;
 import banksystem.web.dto.CountDTO;
-import banksystem.web.mapper.ClientMapper;
 import banksystem.web.mapper.CountMapper;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -3,13 +3,11 @@ package banksystem.web.mapper;
 import banksystem.dao.model.Count;
 import banksystem.web.dto.CountDTO;
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
 @Mapper
 public interface CountMapper {
-    CountMapper INSTANCE = Mappers.getMapper(CountMapper.class);
 
     CountDTO convertToDTO(Count Entity);
 
