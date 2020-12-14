@@ -30,7 +30,7 @@
                 <db.username>root</db.username>
                 <db.password>maloi-26</db.password>
                 <import.path>import.json</import.path>
-                <export.filename>file.png</export.filename>
+                <export.filename>export.json</export.filename>
             </properties>
         </profile>
         <profile>
