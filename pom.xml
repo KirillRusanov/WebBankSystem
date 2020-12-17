@@ -31,6 +31,9 @@
                 <db.password>maloi-26</db.password>
                 <import.path>import.json</import.path>
                 <export.filename>export.json</export.filename>
+                <jwt.header>Authorization</jwt.header>
+                <security.secretKey>intexsoft</security.secretKey>
+                <security.expirationToken>604800</security.expirationToken>
             </properties>
         </profile>
         <profile>
@@ -78,6 +81,26 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-orm</artifactId>
             <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.1</version>
         </dependency>
 
 

@@ -1,5 +1,6 @@
 package banksystem.configuration;
 
+import banksystem.configuration.security.SecurityConfig;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
@@ -10,7 +11,7 @@ public class WebConfig extends AbstractAnnotationConfigDispatcherServletInitiali
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[]{MVCConfig.class, ApplicationConfig.class};
+        return new Class[]{MVCConfig.class, ApplicationConfig.class, SecurityConfig.class};
     }
 
     @Override

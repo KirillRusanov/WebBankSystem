@@ -25,11 +25,20 @@ public class ClientService {
         return repository.getById(id);
     }
 
+    public Client getByEmail(String email){
+        for(Client client : getAll()) {
+            if (client.getEmail().equals(email)) {
+                 return client;
+            }
+        }
+        return null;
+    }
+
     public void delete(Object o){
         repository.delete(o);
     }
 
-    public List getAll() {
+    public List<Client> getAll() {
         return repository.getAll();
     }
 }

@@ -1,5 +1,6 @@
 package banksystem.dao.model;
 
+import banksystem.dao.model.security.Role;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -15,6 +16,16 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
+
+    @Column(name = "email", nullable = false)
+    private String email;
+
+    @Column(name = "password", nullable = false)
+    private String password;
+
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "role", nullable = false)
+    private Role role;
 
     @Column(name = "name", nullable = false)
     private String name;
