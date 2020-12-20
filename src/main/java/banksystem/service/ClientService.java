@@ -3,12 +3,15 @@ package banksystem.service;
 import banksystem.dao.model.Client;
 import banksystem.dao.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class ClientService {
+public class ClientService implements UserDetailsService {
 
     private final ClientRepository repository;
 
@@ -25,9 +28,9 @@ public class ClientService {
         return repository.getById(id);
     }
 
-    public Client getByEmail(String email){
+    public Client getByUsername(String email){
         for(Client client : getAll()) {
-            if (client.getEmail().equals(email)) {
+            if (client.getUsername().equals(email)) {
                  return client;
             }
         }
@@ -41,4 +44,10 @@ public class ClientService {
     public List<Client> getAll() {
         return repository.getAll();
     }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return Client.getUserDetails(getByUsername(username));
+    }
+
 }

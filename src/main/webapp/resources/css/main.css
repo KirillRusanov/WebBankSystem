@@ -28,3 +28,12 @@ table td:first-child {
 table td:last-child {
     border-bottom-right-radius: 20px;
 }
+.my_button {
+    padding-top: 10px;
+}
+.main_auth {
+    text-align: center;
+    padding-left: 27%;
+    padding-right: 27%;
+    padding-top: 8%
+}

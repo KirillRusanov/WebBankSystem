@@ -1,8 +1,8 @@
 package banksystem.dao.model.security;
 
 public enum Permission {
-    WRITE("write"),
-    READ("read");
+    WRITE("admin:write"),
+    READ("client:read");
 
     private final String permission;
 

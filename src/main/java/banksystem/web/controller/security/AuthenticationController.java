@@ -3,22 +3,20 @@ package banksystem.web.controller.security;
 import banksystem.dao.model.Client;
 import banksystem.service.sicurity.JwtTokenProvider;
 import banksystem.service.ClientService;
-import banksystem.web.dto.security.AuthenticationRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
 
-@RestController
+@Controller
 @RequestMapping("/api/auth")
 public class AuthenticationController {
 
@@ -29,26 +27,31 @@ public class AuthenticationController {
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
 
+    @GetMapping("/login")
+    public ModelAndView authenticate(ModelAndView modelAndView) {
+        modelAndView.setViewName("login");
+        return modelAndView;
+    }
+
+    @ResponseBody
     @PostMapping("/login")
-    public ResponseEntity<?> authenticate(@RequestBody AuthenticationRequestDTO request) {
+    public ResponseEntity<?> authenticate(
+            @RequestParam("username") String username,
+            @RequestParam("password") String password,
+            HttpServletResponse response) {
         try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(),request.getPassword()));
-            Client client = clientService.getByEmail(request.getEmail());
-            String token = jwtTokenProvider.createToken(request.getEmail(), client.getRole().name());
-            Map<Object, Object> response = new HashMap<>();
-            response.put("email", request.getEmail());
-            response.put("token", token);
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+            Client client = clientService.getByUsername(username);
+            String token = jwtTokenProvider.createToken(username, client.getRole().name());
+            Cookie cookie = new Cookie(HttpHeaders.AUTHORIZATION, token);
+            cookie.setMaxAge(60*60*24);
+            cookie.setDomain("localhost");
+            cookie.setPath("/");
+            response.addCookie(cookie);
+            response.getOutputStream().close();
             return ResponseEntity.ok(response);
-    } catch (AuthenticationException ex) {
+        } catch (AuthenticationException | IOException ex) {
             return new ResponseEntity<>("Invalid email/password combination", HttpStatus.FORBIDDEN);
         }
-
     }
-
-    @PostMapping("/logout")
-    public void authenticate(HttpServletRequest request, HttpServletResponse response) {
-        SecurityContextLogoutHandler securityContextLogoutHandler = new SecurityContextLogoutHandler();
-        securityContextLogoutHandler.logout(request, response, null);
-    }
-
 }

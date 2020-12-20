@@ -21,7 +21,7 @@
                 relativeToChangelogFile="true"
                 splitStatements="true"
                 stripComments="true"
-                path="autofilling-tables.sql"/>
+                path="autofill-tables.sql"/>
     </changeSet>
 
 </databaseChangeLog>
