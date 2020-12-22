@@ -32,8 +32,10 @@ table td:last-child {
     padding-top: 10px;
 }
 .main_auth {
-    text-align: center;
-    padding-left: 27%;
+    padding-left: 30%;
     padding-right: 27%;
-    padding-top: 8%
+    padding-top: 5%
+}
+.display-2 {
+    text-align: center;
 }

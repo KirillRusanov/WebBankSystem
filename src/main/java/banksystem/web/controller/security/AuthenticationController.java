@@ -1,6 +1,7 @@
 package banksystem.web.controller.security;
 
 import banksystem.dao.model.Client;
+import banksystem.dao.model.security.Role;
 import banksystem.service.sicurity.JwtTokenProvider;
 import banksystem.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,15 +9,14 @@ import org.springframework.http.*;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 @Controller
 @RequestMapping("/api/auth")
@@ -30,37 +30,48 @@ public class AuthenticationController {
     private JwtTokenProvider jwtTokenProvider;
 
     @GetMapping("/login")
-    public ModelAndView authenticate(ModelAndView modelAndView) {
-        modelAndView.setViewName("login");
-        return modelAndView;
+    public String authenticate() {
+        return "login";
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> authenticate(
-            @RequestParam("username") String username,
-            @RequestParam("password") String password,
-            HttpServletResponse response,
-            ModelAndView model) {
+    public String authenticate(@ModelAttribute Client clientForm, HttpServletResponse response) {
         try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-            Client client = clientService.getByUsername(username);
-            String token = jwtTokenProvider.createToken(username, client.getRole().name());
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(clientForm.getUsername(),clientForm.getPassword()));
+            Client client = clientService.getByUsername(clientForm.getUsername());
+            String token = jwtTokenProvider.createToken(clientForm.getUsername(), client.getRole().name());
             Cookie cookie = new Cookie(HttpHeaders.AUTHORIZATION, token);
             cookie.setMaxAge(60*60*24);
             cookie.setDomain("localhost");
             cookie.setPath("/");
             response.addCookie(cookie);
-            response.getOutputStream().close();
-            model.setViewName("clients");
-            return ResponseEntity.ok(model);
-        } catch (AuthenticationException | IOException ex) {
-            return new ResponseEntity<>("Invalid email/password combination", HttpStatus.FORBIDDEN);
+            return "clients";
+        } catch (AuthenticationException ex) {
+            return null; // Authorization error, will return the page with error.
+        }
+    }
+
+    @GetMapping("/registration")
+    public String register() { ;
+        return "registration";
+    }
+
+    @PostMapping("/registration")
+    public String register(@ModelAttribute Client client) {
+        try {
+            String password = new BCryptPasswordEncoder().encode(client.getPassword());
+            client.setRole(Role.USER);
+            client.setPassword(password);
+            clientService.saveOrUpdate(client);
+            return "login";
+        } catch (Exception ex) {
+            return null; // Registration error, will return the page with error.
         }
     }
 
     @GetMapping("/logout")
     @ResponseBody
-    public String authenticate(HttpServletRequest request, HttpServletResponse response) {
+    public String logout(HttpServletRequest request, HttpServletResponse response) {
         Cookie[] cookies = request.getCookies();
         if (cookies != null)
             for (Cookie cookie : cookies) {
