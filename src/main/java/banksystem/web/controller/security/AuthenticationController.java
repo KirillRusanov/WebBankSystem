@@ -45,7 +45,7 @@ public class AuthenticationController {
             cookie.setDomain("localhost");
             cookie.setPath("/");
             response.addCookie(cookie);
-            return "clients";
+            return "redirect: /bank/api/index";
         } catch (AuthenticationException ex) {
             return null; // Authorization error, will return the page with error.
         }
@@ -63,7 +63,7 @@ public class AuthenticationController {
             client.setRole(Role.USER);
             client.setPassword(password);
             clientService.saveOrUpdate(client);
-            return "login";
+            return "redirect: /bank/api/auth/login";
         } catch (Exception ex) {
             return null; // Registration error, will return the page with error.
         }

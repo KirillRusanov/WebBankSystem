@@ -28,6 +28,11 @@ table td:first-child {
 table td:last-child {
     border-bottom-right-radius: 20px;
 }
+a {
+    color: #1e2125;
+    outline: none !important;
+    font-weight: bold;
+}
 .my_button {
     padding-top: 10px;
 }
@@ -38,4 +43,31 @@ table td:last-child {
 }
 .display-2 {
     text-align: center;
+}
+.wrapper {
+    margin-left: 23%;
+    margin-right: 23%;
+    background-color: #86b7fe;
+    padding-bottom: 45%;
+    margin-top: 2.5%;
+    border-radius: 0 10px;
+}
+.navbar-nav {
+    padding-left: 13%;
+    list-style:none;
+}
+.navbar-nav li {
+    border-right: 1px solid #ffffff;
+}
+.navbar-nav li:last-child {
+    border-right: none
+}
+
+.navbar-brand {
+    padding-left: 3%;
+}
+.nav-item {
+    padding-right: 30px;
+    padding-left: 30px;
+    border: #1e2125;
 }
