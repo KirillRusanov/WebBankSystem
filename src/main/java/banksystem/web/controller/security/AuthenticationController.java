@@ -47,7 +47,7 @@ public class AuthenticationController {
             response.addCookie(cookie);
             return "redirect: /bank/api/index";
         } catch (AuthenticationException ex) {
-            return null; // Authorization error, will return the page with error.
+            return "errorAuthorization";
         }
     }
 
@@ -63,14 +63,14 @@ public class AuthenticationController {
             client.setRole(Role.USER);
             client.setPassword(password);
             clientService.saveOrUpdate(client);
+
             return "redirect: /bank/api/auth/login";
         } catch (Exception ex) {
-            return null; // Registration error, will return the page with error.
+            return "errorRegistration";
         }
     }
 
     @GetMapping("/logout")
-    @ResponseBody
     public String logout(HttpServletRequest request, HttpServletResponse response) {
         Cookie[] cookies = request.getCookies();
         if (cookies != null)
@@ -82,6 +82,6 @@ public class AuthenticationController {
             }
         SecurityContextLogoutHandler securityContextLogoutHandler = new SecurityContextLogoutHandler();
         securityContextLogoutHandler.logout(request, response, null);
-        return "You are logged out of your account";
+        return "successLogout";
     }
 }
