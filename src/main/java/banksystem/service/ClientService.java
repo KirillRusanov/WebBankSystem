@@ -1,35 +1,53 @@
 package banksystem.service;
 
-import banksystem.entity.Client;
-import banksystem.repository.ClientRepository;
+import banksystem.dao.model.Client;
+import banksystem.dao.repository.ClientRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public class ClientService {
+@Service
+public class ClientService implements UserDetailsService {
 
-    public ClientService() {
-        this.repository = new ClientRepository();
+    private final ClientRepository repository;
+
+    @Autowired
+    public ClientService(ClientRepository repository) {
+        this.repository = repository;
     }
-    private ClientRepository repository;
 
-    public void create(Client o){
-        repository.create(o);
+    public void saveOrUpdate(Client o){
+        repository.saveOrUpdate(o);
     }
 
     public Client getById(Long id){
-        return (Client) repository.getById(id);
+        return repository.getById(id);
     }
 
-    public void update(Client o){
-        repository.update(o);
+    public Client getByUsername(String email){
+        for(Client client : getAll()) {
+            if (client.getUsername().equals(email)) {
+                 return client;
+            }
+        }
+        return null;
     }
 
     public void delete(Object o){
         repository.delete(o);
     }
 
-    public List getAll() {
+    public List<Client> getAll() {
         return repository.getAll();
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return Client.getUserDetails(getByUsername(username));
     }
 
 }

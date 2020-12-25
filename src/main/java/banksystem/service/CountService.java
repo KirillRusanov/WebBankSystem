@@ -1,27 +1,28 @@
 package banksystem.service;
 
-import banksystem.entity.Count;
-import banksystem.repository.CountRepository;
+import banksystem.dao.model.Count;
+import banksystem.dao.repository.CountRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class CountService {
 
-    public CountService() {
-        this.repository = new CountRepository();
-    }
     private CountRepository repository;
 
-    public void create(Count o){
-        repository.create(o);
+    @Autowired
+    public CountService(CountRepository countRepository) {
+        this.repository = countRepository;
+    }
+
+    public void saveOrUpdate(Count o){
+        repository.saveOrUpdate(o);
     }
 
     public Count getById(Long id){
-        return (Count) repository.getById(id);
-    }
-
-    public void update(Count o){
-        repository.update(o);
+        return repository.getById(id);
     }
 
     public void delete(Object o){

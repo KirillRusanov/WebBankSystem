@@ -1,27 +1,28 @@
 package banksystem.service;
 
-import banksystem.entity.Card;
-import banksystem.repository.CardRepository;
+import banksystem.dao.model.Card;
+import banksystem.dao.repository.CardRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class CardService {
 
-    public CardService() {
-        this.repository = new CardRepository();
-    }
     private CardRepository repository;
 
-    public void create(Card o){
-        repository.create(o);
+    @Autowired
+    public CardService(CardRepository cardRepository) {
+        this.repository = cardRepository;
+    }
+
+    public void saveOrUpdate(Card o){
+        repository.saveOrUpdate(o);
     }
 
     public Card getById(Long id){
-        return (Card) repository.getById(id);
-    }
-
-    public void update(Card o){
-        repository.update(o);
+        return repository.getById(id);
     }
 
     public void delete(Object o){

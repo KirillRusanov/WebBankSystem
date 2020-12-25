@@ -1,59 +1,50 @@
 package banksystem.dao;
 
-import banksystem.utils.HibernateUtil;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
-
+@Component
 public class DAO<R> {
 
     private Class<R> entityClass;
-
-    public DAO(Class<R> entityClass) {
-        sessionFactory = HibernateUtil.getSessionFactory();
-        this.entityClass = entityClass;
-    }
-
+    @Autowired
     private SessionFactory sessionFactory;
 
-    public <T> void create(final T o){
-        System.out.println(sessionFactory.openSession());
-        Session session = sessionFactory.openSession();
-        session.save(o);
-        session.beginTransaction().commit();
-    }
-
     public R getById(final Long id){
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        R result = session.get(entityClass, id);
-        session.close();
-        return result;
+        try(Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            return session.get(entityClass, id);
+        }
     }
 
-    public <T> void update(final T o){
-        sessionFactory.openSession().close();
-        Session session = sessionFactory.openSession();
-        session.saveOrUpdate(o);
-        session.beginTransaction().commit();
-        session.close();
+    public <T> void saveOrUpdate(final T o){
+        try(Session session = sessionFactory.openSession()) {
+            session.saveOrUpdate(o);
+            session.beginTransaction().commit();
+        }
     }
 
     public void delete(final Object object){
-        sessionFactory.openSession().close();
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        session.delete(object);
-        session.getTransaction().commit();
-        session.close();
+        try(Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.delete(object);
+            session.getTransaction().commit();
+        }
     }
 
     public <T> List<T> getAll() {
-        final Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        final Criteria crit = session.createCriteria(entityClass);
-        return crit.list();
+        try(Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            final Criteria crit = session.createCriteria(entityClass);
+            return crit.list();
+        }
+    }
+
+    protected void setEntityClass(Class<R> entityClass) {
+        this.entityClass = entityClass;
     }
 }
