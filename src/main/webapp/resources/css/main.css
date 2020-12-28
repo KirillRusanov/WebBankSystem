@@ -35,6 +35,7 @@ a {
 }
 .my_button {
     padding-top: 10px;
+    text-align: center;
 }
 .main_auth {
     padding-left: 30%;

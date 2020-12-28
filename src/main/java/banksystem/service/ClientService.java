@@ -28,9 +28,9 @@ public class ClientService implements UserDetailsService {
         return repository.getById(id);
     }
 
-    public Client getByUsername(String email){
+    public Client getByUsername(String username){
         for(Client client : getAll()) {
-            if (client.getUsername().equals(email)) {
+            if (client.getUsername().equals(username)) {
                  return client;
             }
         }

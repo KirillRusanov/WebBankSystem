@@ -29,7 +29,7 @@ public class CountService {
         repository.delete(o);
     }
 
-    public List getAll() {
+    public List<Count> getAll() {
         return repository.getAll();
     }
 
