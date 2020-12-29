@@ -1,6 +1,5 @@
 package banksystem.web.dto.validation;
 
-import banksystem.dao.model.Count;
 import banksystem.service.CountService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -18,10 +17,7 @@ public class CountNumberValidator implements ConstraintValidator<CountNumber, St
     }
 
     @Override
-    public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
-        for(Count count : countService.getAll()) {
-            if (count.getNumber().equals(s)) return false;
-        }
-        return true;
+    public boolean isValid(String number, ConstraintValidatorContext constraintValidatorContext) {
+        return countService.getByNumber(number) != null;
     }
 }

@@ -1,6 +1,5 @@
 package banksystem.web.dto.validation;
 
-import banksystem.dao.model.Client;
 import banksystem.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -18,10 +17,7 @@ public class PassportValidator implements ConstraintValidator<Passport, String> 
     }
 
     @Override
-    public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
-        for(Client client : clientService.getAll()) {
-            if (client.getPassNumber().equals(s)) return false;
-        }
-        return true;
+    public boolean isValid(String numberPassport, ConstraintValidatorContext constraintValidatorContext) {
+        return clientService.getByPassport(numberPassport) != null;
     }
 }

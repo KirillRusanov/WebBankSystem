@@ -28,11 +28,28 @@ public class ClientService implements UserDetailsService {
         return repository.getById(id);
     }
 
-    public Client getByUsername(String username){
+    public Client getByUsername(String username) {
         for(Client client : getAll()) {
             if (client.getUsername().equals(username)) {
                  return client;
             }
+        }
+        return null;
+    }
+
+    public Client getByPhone(String phone) {
+        for(Client client : getAll()) {
+            if(client.getPhoneNumber().equals(phone)) {
+                return client;
+            }
+        }
+        return null;
+    }
+
+    public Client getByPassport(String passport) {
+        for(Client client : getAll()) {
+            if(client.getPassNumber().equals(passport))
+                return client;
         }
         return null;
     }

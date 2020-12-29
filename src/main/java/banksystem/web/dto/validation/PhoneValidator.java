@@ -18,10 +18,7 @@ public class PhoneValidator implements ConstraintValidator<Phone, String> {
     }
 
     @Override
-    public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
-        for(Client client : clientService.getAll()) {
-            if (client.getPhoneNumber().equals(s)) return false;
-        }
-        return true;
+    public boolean isValid(String numberPhone, ConstraintValidatorContext constraintValidatorContext) {
+        return clientService.getByPhone(numberPhone) != null;
     }
 }
