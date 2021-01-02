@@ -21,6 +21,14 @@ public class CountService {
         repository.saveOrUpdate(o);
     }
 
+    public Count getByNumber(String number) {
+        for(Count count : getAll()) {
+            count.getNumber().equals(number);
+            return count;
+        }
+        return null;
+    }
+
     public Count getById(Long id){
         return repository.getById(id);
     }
@@ -29,7 +37,7 @@ public class CountService {
         repository.delete(o);
     }
 
-    public List getAll() {
+    public List<Count> getAll() {
         return repository.getAll();
     }
 

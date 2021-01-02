@@ -24,7 +24,11 @@ public class Client implements UserDetails {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "username", nullable = false)
+    @Column(name = "email", nullable = false, unique = true)
+    private String email;
+
+
+    @Column(name = "username", nullable = false, unique = true)
     private String username;
 
     @Column(name = "password", nullable = false)
@@ -46,13 +50,13 @@ public class Client implements UserDetails {
     @Column(name = "address", nullable = false)
     private String address;
 
-    @Column(name = "pass_number", nullable = false)
+    @Column(name = "pass_number", nullable = false, unique = true)
     private String passNumber;
 
     @Column(name = "birthday")
     private Date birthday;
 
-    @Column(name = "phone_number", nullable = false)
+    @Column(name = "phone_number", nullable = false, unique = true)
     private String phoneNumber;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "client_id", cascade = CascadeType.ALL)

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.List;
 @Controller
 @RequestMapping("/api/count")
@@ -45,14 +46,14 @@ public class CountController {
 
     @ResponseBody
     @PostMapping(value = "/create", produces = "application/json", consumes="application/json")
-    public CountDTO addCount(@RequestBody CountDTO countDTO) {
+    public CountDTO addCount(@RequestBody @Valid CountDTO countDTO) {
         countService.saveOrUpdate(countMapper.convertToEntity(countDTO));
         return countDTO;
     }
 
     @ResponseBody
     @PostMapping(value = "/edit", produces = "application/json", consumes = "application/json")
-    public CountDTO updateCount(@RequestBody CountDTO countDTO) {
+    public CountDTO updateCount(@RequestBody @Valid CountDTO countDTO) {
         countService.saveOrUpdate(countMapper.convertToEntity(countDTO));
         return countDTO;
     }

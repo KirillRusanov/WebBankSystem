@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.List;
 @Controller
 @RequestMapping("/api/client")
@@ -46,14 +47,14 @@ public class ClientController {
 
     @ResponseBody
     @PostMapping(value = "/create", produces = "application/json", consumes="application/json")
-    public ClientDTO addClient(@RequestBody ClientDTO clientDTO) {
+    public ClientDTO addClient(@RequestBody @Valid ClientDTO clientDTO) {
         clientService.saveOrUpdate(clientMapper.convertToEntity(clientDTO));
         return clientDTO;
     }
 
     @ResponseBody
     @PostMapping(value = "/edit", produces = "application/json", consumes = "application/json")
-    public ClientDTO updateClient(@RequestBody ClientDTO clientDTO) {
+    public ClientDTO updateClient(@RequestBody @Valid ClientDTO clientDTO) {
         clientService.saveOrUpdate(clientMapper.convertToEntity(clientDTO));
         return clientDTO;
     }
