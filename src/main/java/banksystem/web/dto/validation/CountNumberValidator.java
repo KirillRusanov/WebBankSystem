@@ -18,6 +18,6 @@ public class CountNumberValidator implements ConstraintValidator<CountNumber, St
 
     @Override
     public boolean isValid(String number, ConstraintValidatorContext constraintValidatorContext) {
-        return countService.getByNumber(number) != null;
+        return countService.getByNumber(number) == null;
     }
 }

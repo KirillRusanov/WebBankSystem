@@ -80,3 +80,7 @@ a {
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
 }
+.panel {
+    padding-top:30px;
+    padding-bottom: 30px;
+}
