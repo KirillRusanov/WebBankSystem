@@ -13,58 +13,51 @@ import java.util.List;
 @Service
 public class ClientService implements UserDetailsService {
 
-    private final ClientRepository repository;
-
     @Autowired
-    public ClientService(ClientRepository repository) {
-        this.repository = repository;
+    private ClientRepository repository;
+
+    public void saveOrUpdate(Client o) {
+         repository.save(o);
     }
 
-    public void saveOrUpdate(Client o){
-        repository.saveOrUpdate(o);
+    public void delete(Client o) {
+        repository.delete(o);
     }
 
-    public Client getById(Long id){
+    public Client getById(Long id) {
         return repository.getById(id);
     }
 
     public Client getByUsername(String username) {
-        for(Client client : getAll()) {
-            if (client.getUsername().equals(username)) {
-                 return client;
-            }
+        try {
+            return repository.findByUsername(username);
+        } catch (NullPointerException ex) {
+            return null;
         }
-        return null;
     }
 
     public Client getByPhone(String phone) {
-        for(Client client : getAll()) {
-            if(client.getPhoneNumber().equals(phone)) {
-                return client;
-            }
+        try {
+            return repository.findByPhoneNumber(phone);
+        } catch (NullPointerException ex) {
+            return null;
         }
-        return null;
     }
 
     public Client getByPassport(String passport) {
-        for(Client client : getAll()) {
-            if(client.getPassNumber().equals(passport))
-                return client;
+        try {
+            return repository.findByPassNumber(passport);
+        } catch (NullPointerException ex) {
+            return null;
         }
-        return null;
-    }
-
-    public void delete(Object o){
-        repository.delete(o);
     }
 
     public List<Client> getAll() {
-        return repository.getAll();
+        return (List<Client>) repository.findAll();
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return Client.getUserDetails(getByUsername(username));
     }
-
 }

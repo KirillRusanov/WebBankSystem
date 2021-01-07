@@ -1,14 +1,14 @@
 package banksystem.dao.repository;
 
-import banksystem.dao.DAO;
 import banksystem.dao.model.Count;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-@Component
-public class CountRepository extends DAO<Count> {
-    @Autowired
-    public CountRepository() {
-        setEntityClass(Count.class);
-    }
+@Repository
+public interface CountRepository extends CrudRepository<Count, Long> {
+
+    Count findByNumber(String number);
+
+    Count getById(Long id);
+
 }

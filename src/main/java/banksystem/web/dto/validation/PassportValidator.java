@@ -18,6 +18,6 @@ public class PassportValidator implements ConstraintValidator<Passport, String> 
 
     @Override
     public boolean isValid(String numberPassport, ConstraintValidatorContext constraintValidatorContext) {
-        return clientService.getByPassport(numberPassport) != null;
+        return clientService.getByPassport(numberPassport) == null;
     }
 }

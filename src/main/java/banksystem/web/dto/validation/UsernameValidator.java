@@ -15,6 +15,6 @@ public class UsernameValidator implements ConstraintValidator<Username, String> 
    }
 
    public boolean isValid(String username, ConstraintValidatorContext context) {
-      return clientService.getByUsername(username) != null;
+      return clientService.getByUsername(username) == null;
    }
 }

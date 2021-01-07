@@ -1,14 +1,13 @@
 package banksystem.dao.repository;
 
-import banksystem.dao.DAO;
-import banksystem.dao.model.Card;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-@Component
-public class CardRepository extends DAO<Card> {
-    @Autowired
-    public CardRepository() {
-        setEntityClass(Card.class);
-    }
+import banksystem.dao.model.Card;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface CardRepository extends CrudRepository<Card, Long> {
+
+    Card getById(Long id);
+
 }
