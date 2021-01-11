@@ -34,6 +34,8 @@
                 <jwt.header>Authorization</jwt.header>
                 <security.secretKey>intexsoft</security.secretKey>
                 <security.expirationToken>604800</security.expirationToken>
+                <verificationSender.email>kirillrusbanksystem@gmail.com</verificationSender.email>
+                <verificationSender.password>pVR-kff-utm-H94</verificationSender.password>
             </properties>
         </profile>
         <profile>
@@ -51,6 +53,11 @@
                 <db.password>8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92</db.password>
                 <import.path>import.json</import.path>
                 <export.filename>file.json</export.filename>
+                <jwt.header>Authorization</jwt.header>
+                <security.secretKey>intexsoft</security.secretKey>
+                <security.expirationToken>604800</security.expirationToken>
+                <verificationSender.email>kirillrusbanksystem@gmail.com</verificationSender.email>
+                <verificationSender.password>pVR-kff-utm-H94</verificationSender.password>
             </properties>
         </profile>
     </profiles>
@@ -60,6 +67,11 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
             <version>${spring.version}</version>
         </dependency>
         <dependency>
@@ -152,7 +164,11 @@
             <version>1.18.12</version>
             <scope>provided</scope>
         </dependency>
-
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+            <version>1.6.2</version>
+        </dependency>
 
         <!-- Jackson JSON Mapper -->
         <dependency>

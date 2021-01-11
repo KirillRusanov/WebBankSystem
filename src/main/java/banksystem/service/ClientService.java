@@ -28,30 +28,19 @@ public class ClientService implements UserDetailsService {
         return repository.getById(id);
     }
 
-    public Client getByUsername(String username) {
-        for(Client client : getAll()) {
-            if (client.getUsername().equals(username)) {
-                 return client;
-            }
-        }
-        return null;
+    public Client getByEmail(String email) {
+        return repository.getByEmail(email);
     }
 
     public Client getByPhone(String phone) {
-        for(Client client : getAll()) {
-            if(client.getPhoneNumber().equals(phone)) {
-                return client;
-            }
-        }
-        return null;
+        return repository.getByPhone(phone);
     }
 
+    public Client getByUsername(String username) {
+        return repository.getByUsername(username);
+    }
     public Client getByPassport(String passport) {
-        for(Client client : getAll()) {
-            if(client.getPassNumber().equals(passport))
-                return client;
-        }
-        return null;
+        return repository.getByPassport(passport);
     }
 
     public void delete(Object o){

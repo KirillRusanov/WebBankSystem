@@ -2,6 +2,7 @@ package banksystem.web.dto;
 
 import banksystem.dao.model.Count;
 import banksystem.dao.model.security.Role;
+import banksystem.web.dto.validation.Mail;
 import banksystem.web.dto.validation.Passport;
 import banksystem.web.dto.validation.Phone;
 import banksystem.web.dto.validation.Username;
@@ -17,6 +18,8 @@ public class ClientDTO {
 
     private Long id;
 
+    @Mail
+    @Email(message = "! must be in the format of an email address")
     private String email;
 
     @Username
@@ -57,4 +60,6 @@ public class ClientDTO {
     private String phoneNumber;
 
     private List<Count> counts;
+
+    private boolean isVerified;
 }
