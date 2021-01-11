@@ -8,18 +8,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class ConfirmationTokenService {
 
-    private final ConfirmationTokenRepository repository;
-
     @Autowired
-    public ConfirmationTokenService(ConfirmationTokenRepository repository) {
-        this.repository = repository;
-    }
+    private ConfirmationTokenRepository repository;
 
-    public void saveOrUpdate(ConfirmationToken o){
-        repository.saveOrUpdate(o);
+    public void saveOrUpdate(ConfirmationToken token){
+        repository.save(token);
     }
 
     public ConfirmationToken getByToken(String token) {
-        return repository.getByToken(token);
+        return repository.findByToken(token);
     }
 }

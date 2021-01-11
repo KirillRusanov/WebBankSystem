@@ -17,7 +17,7 @@ public class ClientService implements UserDetailsService {
     private ClientRepository repository;
 
     public void saveOrUpdate(Client o) {
-         repository.save(o);
+        repository.save(o);
     }
 
     public void delete(Client o) {
@@ -34,8 +34,14 @@ public class ClientService implements UserDetailsService {
         } catch (NullPointerException ex) {
             return null;
         }
+    }
+
     public Client getByEmail(String email) {
-        return repository.getByEmail(email);
+        try {
+            return repository.findByEmail(email);
+        } catch (NullPointerException ex) {
+            return null;
+        }
     }
 
     public Client getByPhone(String phone) {
@@ -60,6 +66,6 @@ public class ClientService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return Client.getUserDetails(getByUsername(username));
+            return Client.getUserDetails(getByUsername(username));
     }
 }
