@@ -10,27 +10,23 @@ import java.util.List;
 @Service
 public class CardService {
 
+    @Autowired
     private CardRepository repository;
 
-    @Autowired
-    public CardService(CardRepository cardRepository) {
-        this.repository = cardRepository;
+    public void saveOrUpdate(Card card){
+        repository.save(card);
     }
 
-    public void saveOrUpdate(Card o){
-        repository.saveOrUpdate(o);
+    public void delete(Card card){
+        repository.delete(card);
     }
 
     public Card getById(Long id){
         return repository.getById(id);
     }
 
-    public void delete(Object o){
-        repository.delete(o);
-    }
-
-    public List getAll() {
-        return repository.getAll();
+    public List<Card> getAll() {
+        return (List<Card>) repository.findAll();
     }
 
 }

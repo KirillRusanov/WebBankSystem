@@ -10,35 +10,31 @@ import java.util.List;
 @Service
 public class CountService {
 
+    @Autowired
     private CountRepository repository;
 
-    @Autowired
-    public CountService(CountRepository countRepository) {
-        this.repository = countRepository;
+    public void saveOrUpdate(Count count){
+        repository.save(count);
     }
 
-    public void saveOrUpdate(Count o){
-        repository.saveOrUpdate(o);
+    public void delete(Count count){
+        repository.delete(count);
     }
 
     public Count getByNumber(String number) {
-        for(Count count : getAll()) {
-            count.getNumber().equals(number);
-            return count;
+        try {
+            return repository.findByNumber(number);
+        } catch (NullPointerException ex) {
+            return null;
         }
-        return null;
     }
 
     public Count getById(Long id){
         return repository.getById(id);
     }
 
-    public void delete(Object o){
-        repository.delete(o);
-    }
-
     public List<Count> getAll() {
-        return repository.getAll();
+        return (List<Count>) repository.findAll();
     }
 
 }

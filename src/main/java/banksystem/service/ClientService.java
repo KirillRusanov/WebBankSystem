@@ -13,47 +13,53 @@ import java.util.List;
 @Service
 public class ClientService implements UserDetailsService {
 
-    private final ClientRepository repository;
-
     @Autowired
-    public ClientService(ClientRepository repository) {
-        this.repository = repository;
+    private ClientRepository repository;
+
+    public void saveOrUpdate(Client o) {
+         repository.save(o);
     }
 
-    public void saveOrUpdate(Client o){
-        repository.saveOrUpdate(o);
+    public void delete(Client o) {
+        repository.delete(o);
     }
 
-    public Client getById(Long id){
+    public Client getById(Long id) {
         return repository.getById(id);
     }
 
+    public Client getByUsername(String username) {
+        try {
+            return repository.findByUsername(username);
+        } catch (NullPointerException ex) {
+            return null;
+        }
     public Client getByEmail(String email) {
         return repository.getByEmail(email);
     }
 
     public Client getByPhone(String phone) {
-        return repository.getByPhone(phone);
+        try {
+            return repository.findByPhoneNumber(phone);
+        } catch (NullPointerException ex) {
+            return null;
+        }
     }
 
-    public Client getByUsername(String username) {
-        return repository.getByUsername(username);
-    }
     public Client getByPassport(String passport) {
-        return repository.getByPassport(passport);
-    }
-
-    public void delete(Object o){
-        repository.delete(o);
+        try {
+            return repository.findByPassNumber(passport);
+        } catch (NullPointerException ex) {
+            return null;
+        }
     }
 
     public List<Client> getAll() {
-        return repository.getAll();
+        return (List<Client>) repository.findAll();
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return Client.getUserDetails(getByUsername(username));
     }
-
 }
