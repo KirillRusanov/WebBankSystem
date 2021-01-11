@@ -36,6 +36,11 @@ public class ApplicationConfig {
     @Value("${changeLogFile}")
     String changeLogFile;
 
+    @Value("${verificationSender.email}")
+    String senderEmail;
+    @Value("${verificationSender.password}")
+    String senderPassword;
+
     @Bean
     public SpringLiquibase liquibase() {
         SpringLiquibase liquibase = new SpringLiquibase();
@@ -79,8 +84,8 @@ public class ApplicationConfig {
         mailSender.setHost("smtp.gmail.com");
         mailSender.setPort(587);
 
-        mailSender.setUsername("kirillrusbanksystem@gmail.com");
-        mailSender.setPassword("pVR-kff-utm-H94");
+        mailSender.setUsername(senderEmail);
+        mailSender.setPassword(senderPassword);
 
         Properties props = mailSender.getJavaMailProperties();
         props.put("mail.transport.protocol", "smtp");

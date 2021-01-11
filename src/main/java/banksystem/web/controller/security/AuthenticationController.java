@@ -14,7 +14,6 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
@@ -27,7 +26,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -113,19 +111,7 @@ public class AuthenticationController {
             ConfirmationToken confirmationToken = new ConfirmationToken(client, token, new Date());
             confirmationTokenService.saveOrUpdate(confirmationToken);
 
-            MimeMessage mimeMessage = javaMailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
-
-            String htmlMsg = "<h3>To confirm your account, please click here : "
-                    + "<a href=\"http://localhost:8080/bank/api/auth/confirm-account?token="
-                    + confirmationToken.getToken() + "\"> Click </a></h3>";
-
-            helper.setText(htmlMsg, true);
-            helper.setTo(newClient.getEmail());
-            helper.setSubject("Complete Registration!");
-            helper.setFrom("Bank");
-
-            mailSenderService.sendEmail(mimeMessage);
+            mailSenderService.sendVerification(token, client);
 
             model.addObject("email", newClient.getEmail());
             model.setViewName("registrationSuccess");
