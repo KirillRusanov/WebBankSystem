@@ -64,7 +64,7 @@ public class AuthenticationController {
                 response.addCookie(cookie);
                 return "redirect: /bank/api/index";
             } catch (AuthenticationException ex) {
-                return "errorAuthorization";
+                return "authorizationError";
             }
         }
     }

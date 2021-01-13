@@ -19,6 +19,6 @@ public class PhoneValidator implements ConstraintValidator<Phone, String> {
 
     @Override
     public boolean isValid(String numberPhone, ConstraintValidatorContext constraintValidatorContext) {
-        return clientService.getByPhone(numberPhone) != null;
+        return clientService.getByPhone(numberPhone) == null;
     }
 }

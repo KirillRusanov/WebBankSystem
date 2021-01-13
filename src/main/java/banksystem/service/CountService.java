@@ -23,8 +23,9 @@ public class CountService {
 
     public Count getByNumber(String number) {
         for(Count count : getAll()) {
-            count.getNumber().equals(number);
-            return count;
+            if(count.getNumber().equals(number)) {
+                return count;
+            }
         }
         return null;
     }
