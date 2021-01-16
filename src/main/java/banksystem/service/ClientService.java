@@ -29,35 +29,19 @@ public class ClientService implements UserDetailsService {
     }
 
     public Client getByUsername(String username) {
-        try {
-            return repository.findByUsername(username);
-        } catch (NullPointerException ex) {
-            return null;
-        }
+        return repository.findByUsername(username);
     }
 
     public Client getByEmail(String email) {
-        try {
-            return repository.findByEmail(email);
-        } catch (NullPointerException ex) {
-            return null;
-        }
+        return repository.findByEmail(email);
     }
 
     public Client getByPhone(String phone) {
-        try {
-            return repository.findByPhoneNumber(phone);
-        } catch (NullPointerException ex) {
-            return null;
-        }
+        return repository.findByPhoneNumber(phone);
     }
 
     public Client getByPassport(String passport) {
-        try {
-            return repository.findByPassNumber(passport);
-        } catch (NullPointerException ex) {
-            return null;
-        }
+        return repository.findByPassNumber(passport);
     }
 
     public List<Client> getAll() {

@@ -22,11 +22,7 @@ public class CountService {
     }
 
     public Count getByNumber(String number) {
-        try {
             return repository.findByNumber(number);
-        } catch (NullPointerException ex) {
-            return null;
-        }
     }
 
     public Count getById(Long id){
