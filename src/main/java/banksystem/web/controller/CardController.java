@@ -2,9 +2,7 @@ package banksystem.web.controller;
 
 import banksystem.dao.model.Card;
 import banksystem.service.CardService;
-import banksystem.service.ClientService;
 import banksystem.service.CountService;
-import banksystem.service.sicurity.JwtTokenProvider;
 import banksystem.web.dto.CardDTO;
 import banksystem.web.dto.CountDTO;
 import banksystem.web.mapper.CardMapper;
