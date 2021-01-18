@@ -127,3 +127,7 @@ body {
     margin-left: 70px;
     width: 320px;
 }
+.panel {
+    padding-top:30px;
+    padding-bottom: 30px;
+}

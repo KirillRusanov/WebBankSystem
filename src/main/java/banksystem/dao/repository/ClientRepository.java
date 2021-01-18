@@ -1,14 +1,20 @@
 package banksystem.dao.repository;
 
-import banksystem.dao.DAO;
 import banksystem.dao.model.Client;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-@Component
-public class ClientRepository extends DAO<Client> {
-    @Autowired
-    public ClientRepository() {
-        setEntityClass(Client.class);
-    }
+@Repository
+public interface ClientRepository extends CrudRepository<Client, Long> {
+
+    Client findByPhoneNumber(String phoneNumber);
+
+    Client findByPassNumber(String passNumber);
+
+    Client findByUsername(String username);
+
+    Client findByEmail(String email);
+
+    Client getById(Long id);
+
 }

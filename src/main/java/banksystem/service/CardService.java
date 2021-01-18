@@ -14,8 +14,6 @@ import java.util.Random;
 @Service
 public class CardService {
 
-    private CardRepository repository;
-
     @Autowired
     private CardService cardService;
 
@@ -23,24 +21,22 @@ public class CardService {
     private CountService countService;
 
     @Autowired
-    public CardService(CardRepository cardRepository) {
-        this.repository = cardRepository;
+    private CardRepository repository;
+
+    public void saveOrUpdate(Card card){
+        repository.save(card);
     }
 
-    public void saveOrUpdate(Card o){
-        repository.saveOrUpdate(o);
+    public void delete(Card card){
+        repository.delete(card);
     }
 
     public Card getById(Long id){
         return repository.getById(id);
     }
 
-    public void delete(Object o){
-        repository.delete(o);
-    }
-
-    public List getAll() {
-        return repository.getAll();
+    public List<Card> getAll() {
+        return (List<Card>) repository.findAll();
     }
 
     public Date getTermDate() {

@@ -1,7 +1,10 @@
 package banksystem.web.controller.security;
 
 import banksystem.dao.model.Client;
+import banksystem.dao.model.security.ConfirmationToken;
 import banksystem.dao.model.security.Role;
+import banksystem.service.ConfirmationTokenService;
+import banksystem.service.MailSenderService;
 import banksystem.service.sicurity.JwtTokenProvider;
 import banksystem.service.ClientService;
 import banksystem.web.dto.ClientDTO;
@@ -10,6 +13,7 @@ import banksystem.web.mapper.ClientMapper;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
@@ -19,11 +23,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.Date;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/api/auth")
@@ -34,7 +42,13 @@ public class AuthenticationController {
     @Autowired
     private ClientService clientService;
     @Autowired
+    private ConfirmationTokenService confirmationTokenService;
+    @Autowired
     private JwtTokenProvider jwtTokenProvider;
+    @Autowired
+    private JavaMailSender javaMailSender;
+    @Autowired
+    private MailSenderService mailSenderService;
 
     private ClientMapper clientMapper = Mappers.getMapper(ClientMapper.class);
 
@@ -77,17 +91,53 @@ public class AuthenticationController {
     }
 
     @PostMapping("/registration")
-    public String register(@ModelAttribute("client") @Valid ClientDTO newClient,
-                           BindingResult result) {
+    public ModelAndView register(@ModelAttribute("client") @Valid ClientDTO newClient,
+                           BindingResult result, ModelAndView model) throws MessagingException {
+
         if (result.hasErrors()) {
-            return "registration";
+            model.setViewName("registration");
+            return model;
+
         } else {
             String password = new BCryptPasswordEncoder().encode(newClient.getPassword());
             newClient.setRole(Role.USER);
             newClient.setPassword(password);
-            clientService.saveOrUpdate(clientMapper.convertToEntity(newClient));
-            return "redirect: /bank/api/auth/login";
+
+            Client client = clientMapper.convertToEntity(newClient);
+            clientService.saveOrUpdate(client);
+
+            String token = UUID.randomUUID().toString();
+
+            ConfirmationToken confirmationToken = new ConfirmationToken(client, token, new Date());
+            confirmationTokenService.saveOrUpdate(confirmationToken);
+
+            mailSenderService.sendVerification(token, client);
+
+            model.addObject("email", newClient.getEmail());
+            model.setViewName("registrationSuccess");
+            return model;
         }
+    }
+
+    @RequestMapping(value="/confirm-account", method= {RequestMethod.GET, RequestMethod.POST})
+    public ModelAndView confirmUserAccount(ModelAndView modelAndView, @RequestParam("token") String confirmationToken)
+    {
+        ConfirmationToken token = confirmationTokenService.getByToken(confirmationToken);
+
+        if(token != null)
+        {
+            Client client = clientService.getByEmail(token.getClient().getEmail());
+            client.setVerified(true);
+            clientService.saveOrUpdate(client);
+            modelAndView.setViewName("accountVerified");
+        }
+        else
+        {
+            modelAndView.addObject("message","The link is invalid or broken!");
+            modelAndView.setViewName("verificationError");
+        }
+
+        return modelAndView;
     }
 
 

@@ -24,6 +24,9 @@ public class Client implements UserDetails {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @Column(name = "email", nullable = false, unique = true)
+    private String email;
+
     @Column(name = "username", nullable = false, unique = true)
     private String username;
 
@@ -58,6 +61,9 @@ public class Client implements UserDetails {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "client_id", cascade = CascadeType.ALL)
     private List<Count> counts;
 
+    @Column(name = "isVerified", nullable = false)
+    private boolean isVerified;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
@@ -90,7 +96,7 @@ public class Client implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return isVerified;
     }
 
     public static UserDetails getUserDetails(Client client) {
