@@ -4,7 +4,6 @@ import banksystem.dao.model.Client;
 import banksystem.dao.model.Count;
 import banksystem.service.ClientService;
 import banksystem.service.CountService;
-import banksystem.service.sicurity.JwtTokenProvider;
 import banksystem.web.dto.CardDTO;
 import banksystem.web.dto.ClientDTO;
 import banksystem.web.dto.CountDTO;
@@ -12,20 +11,19 @@ import banksystem.web.mapper.ClientMapper;
 import banksystem.web.mapper.CountMapper;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.Cookie;
 import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/api/count")
 public class CountController {
 
-    @Autowired
-    private JwtTokenProvider jwtTokenProvider;
     @Autowired
     private ClientService clientService;
     @Autowired
@@ -36,26 +34,23 @@ public class CountController {
     private CountMapper countMapper = Mappers.getMapper(CountMapper.class);
 
     @GetMapping("/list")
-    public ModelAndView getPersonalCounts(@CookieValue(value = "Authorization") Cookie authorization, ModelAndView model) {
-        if (authorization != null) {
-            String username = jwtTokenProvider.getUsername(authorization.getValue());
-            ClientDTO client = clientMapper.convertToDTO(clientService.getByUsername(username));
+    public ModelAndView getPersonalCounts(Authentication authentication, ModelAndView model) {
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            ClientDTO client = clientMapper.convertToDTO(clientService.getByUsername(userDetails.getUsername()));
             model.addObject("countList", client.getCounts());
             model.setViewName("showPersonalCounts");
             model.addObject("count", new CountDTO());
-        }
         return model;
     }
 
     @PostMapping("/create")
-    public String addCount(@CookieValue(value = "Authorization") Cookie authorization,
-                           @ModelAttribute("count") @Valid CountDTO newCount,
+    public String addCount(Authentication authentication, @ModelAttribute("count") @Valid CountDTO newCount,
                            BindingResult result) {
         if (result.hasErrors()) {
             return "showPersonalCounts";
         } else {
-            Client client = clientService.getByUsername(jwtTokenProvider.
-                    getUsername(authorization.getValue()));
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            Client client = clientService.getByUsername(userDetails.getUsername());
             newCount.setClient_id(client);
             newCount.setBalance(0);
             countService.saveOrUpdate(countMapper.convertToEntity(newCount));
