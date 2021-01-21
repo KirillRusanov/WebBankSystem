@@ -46,8 +46,6 @@ public class AuthenticationController {
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
     @Autowired
-    private JavaMailSender javaMailSender;
-    @Autowired
     private MailSenderService mailSenderService;
 
     private ClientMapper clientMapper = Mappers.getMapper(ClientMapper.class);

@@ -15,9 +15,6 @@ import java.util.Random;
 public class CardService {
 
     @Autowired
-    private CardService cardService;
-
-    @Autowired
     private CountService countService;
 
     @Autowired
@@ -37,13 +34,6 @@ public class CardService {
 
     public List<Card> getAll() {
         return (List<Card>) repository.findAll();
-    }
-
-    public Date getTermDate() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date());
-        calendar.add(Calendar.YEAR,1);
-        return calendar.getTime();
     }
 
     public CardDTO generateNewCard(Long countId) {

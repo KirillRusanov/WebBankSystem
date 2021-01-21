@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Controller
@@ -37,39 +36,27 @@ public class CountController {
     private CountMapper countMapper = Mappers.getMapper(CountMapper.class);
 
     @GetMapping("/list")
-    public ModelAndView getPersonalCounts(HttpServletRequest request, ModelAndView model) {
-        Cookie[] cookies = request.getCookies();
-        String username = "";
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("Authorization")) {
-                    username = jwtTokenProvider.getUsername(cookie.getValue());
-                }
-            }
+    public ModelAndView getPersonalCounts(@CookieValue(value = "Authorization") Cookie authorization, ModelAndView model) {
+        if (authorization != null) {
+            String username = jwtTokenProvider.getUsername(authorization.getValue());
+            ClientDTO client = clientMapper.convertToDTO(clientService.getByUsername(username));
+            model.addObject("countList", client.getCounts());
+            model.setViewName("showPersonalCounts");
+            model.addObject("count", new CountDTO());
         }
-        ClientDTO client = clientMapper.convertToDTO(clientService.getByUsername(username));
-        model.addObject("countList", client.getCounts());
-        model.setViewName("showPersonalCounts");
-        model.addObject("count", new CountDTO());
         return model;
     }
 
     @PostMapping("/create")
-    public String addCount(@ModelAttribute("count") @Valid CountDTO newCount,
-                           BindingResult result, HttpServletRequest request) {
+    public String addCount(@CookieValue(value = "Authorization") Cookie authorization,
+                           @ModelAttribute("count") @Valid CountDTO newCount,
+                           BindingResult result) {
         if (result.hasErrors()) {
             return "showPersonalCounts";
         } else {
-            Cookie[] cookies = request.getCookies();
-            if (cookies != null) {
-                for (Cookie cookie : cookies) {
-                    if (cookie.getName().equals("Authorization")) {
-                        Client client = clientService.getByUsername(
-                                jwtTokenProvider.getUsername(cookie.getValue()));
-                        newCount.setClient_id(client);
-                    }
-                }
-            }
+            Client client = clientService.getByUsername(jwtTokenProvider.
+                    getUsername(authorization.getValue()));
+            newCount.setClient_id(client);
             newCount.setBalance(0);
             countService.saveOrUpdate(countMapper.convertToEntity(newCount));
             return "redirect: /bank/api/count/list";
