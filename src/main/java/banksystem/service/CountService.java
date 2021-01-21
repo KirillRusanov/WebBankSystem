@@ -36,5 +36,4 @@ public class CountService {
     public List<Count> getAll() {
         return (List<Count>) repository.findAll();
     }
-
 }

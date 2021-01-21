@@ -13,7 +13,6 @@ import banksystem.web.mapper.ClientMapper;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
@@ -46,8 +45,6 @@ public class AuthenticationController {
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
     @Autowired
-    private JavaMailSender javaMailSender;
-    @Autowired
     private MailSenderService mailSenderService;
 
     private ClientMapper clientMapper = Mappers.getMapper(ClientMapper.class);
@@ -78,7 +75,7 @@ public class AuthenticationController {
                 response.addCookie(cookie);
                 return "redirect: /bank/api/index";
             } catch (AuthenticationException ex) {
-                return "errorAuthorization";
+                return "authorizationError";
             }
         }
     }

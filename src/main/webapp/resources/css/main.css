@@ -1,10 +1,10 @@
 table {
-    font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif, serif;
     font-size: 14px;
     text-align: left;
     border-collapse: collapse;
     border-radius: 20px;
-    box-shadow: 0 0 0 10px #F2906B;
+    box-shadow: 0 0 0 10px #ffffff;
     color: #452F21;
 }
 th {
@@ -18,18 +18,14 @@ table th:last-child {
     border-top-right-radius: 20px;
 }
 td {
-    border-top: 10px solid #F2906B;
+    color: #fdfdfe;
+    border-top: 10px solid #C5DDE8;
     padding: 8px;
-    background: white;
+    background: #636464;
 }
-table td:first-child {
-    border-bottom-left-radius: 20px;
-}
-table td:last-child {
-    border-bottom-right-radius: 20px;
-}
+
 a {
-    color: #1e2125;
+    color: #ffffff;
     outline: none !important;
     font-weight: bold;
 }
@@ -38,23 +34,22 @@ a {
     text-align: center;
 }
 .main_auth {
-    padding-left: 30%;
+    padding-left: 27%;
     padding-right: 27%;
-    padding-top: 5%
+    padding-top: 2%;
+    color: #ffffff;
+}
+.border {
+    background: linear-gradient(45deg, #636464, #C5DDE8);
+    border-radius: 7px;
 }
 .display-2 {
     text-align: center;
+    color: #ffffff;
 }
-.wrapper {
-    margin-left: 23%;
-    margin-right: 23%;
-    background-color: #86b7fe;
-    padding-bottom: 45%;
-    margin-top: 2.5%;
-    border-radius: 0 10px;
-}
+
 .navbar-nav {
-    padding-left: 13%;
+    padding-left: 16%;
     list-style:none;
 }
 .navbar-nav li {
@@ -66,11 +61,12 @@ a {
 
 .navbar-brand {
     padding-left: 3%;
+    color: #636464;
 }
 .nav-item {
     padding-right: 30px;
     padding-left: 30px;
-    border: #1e2125;
+    border: #bacbe6;
 }
 .alert {
     text-align: center;
@@ -79,6 +75,57 @@ a {
     -webkit-transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+}
+body {
+    background-color: #000;
+    background-image: url("../../resources/image/bank.jpg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+#profile {
+    background-image: url("../../resources/image/profile.png") ;
+    background-size: 100%;
+    width: 32px;
+    height: 32px;
+    border-radius: 100px;
+    margin-left:20px;
+    margin-top:5px
+}
+.counts {
+   margin-left:10%;
+    margin-right: 10%;
+}
+.card-body {
+    text-align: center;
+}
+.card {
+    background: #C5DDE8;
+    margin-bottom: 6%;
+}
+.create-count {
+    padding-top: 25px;
+    display: flex;
+    margin-left: 8%;
+    margin-bottom:2%;
+}
+.display-5 {
+    color: #ffffff;
+}
+.count-workplace {
+    background-color: #636464;
+    border-radius: 50px;
+    margin-top: 4%;
+    margin-left: 12%;
+    margin-right: 12%;
+    padding-bottom: 5%;
+}
+.workplace-header {
+    display: flex;
+    margin-left: 4%
+}
+.create-menu {
+    margin-left: 70px;
+    width: 320px;
 }
 .panel {
     padding-top:30px;
