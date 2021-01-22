@@ -1,6 +1,8 @@
 package banksystem.service;
 
 import banksystem.dao.model.Client;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -16,6 +18,8 @@ public class MailSenderService {
     @Autowired
     private JavaMailSender javaMailSender;
 
+    private static final Logger LOG = LoggerFactory.getLogger(MailSenderService.class);
+
     @Async
     public void sendEmail(MimeMessage email) {
         javaMailSender.send(email);
@@ -29,10 +33,15 @@ public class MailSenderService {
                 + "<a href=\"http://localhost:8080/bank/api/auth/confirm-account?token="
                 + token + "\"> Click </a></h3>";
 
-        helper.setText(htmlMsg, true);
-        helper.setTo(client.getEmail());
-        helper.setSubject("Complete Registration!");
-        helper.setFrom("Bank");
+        try {
+            helper.setText(htmlMsg, true);
+            helper.setTo(client.getEmail());
+            helper.setSubject("Complete Registration!");
+            helper.setFrom("Bank");
+        } catch (MessagingException e) {
+            LOG.error("Error sending verification letter", e);
+            throw new MessagingException();
+        }
 
         sendEmail(mimeMessage);
     }
