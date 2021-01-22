@@ -66,6 +66,6 @@ public class ClientService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-            return Client.getUserDetails(getByUsername(username));
+        return Client.getUserDetails(getByUsername(username));
     }
 }

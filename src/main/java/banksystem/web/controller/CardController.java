@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.validation.Valid;
 import javax.websocket.server.PathParam;
 
 @Controller
@@ -39,11 +38,6 @@ public class CardController {
         return model;
     }
 
-    @GetMapping(value = "/{id}")
-    public CardDTO getCardById(@PathVariable("id") Long id) {
-        return cardMapper.convertToDTO(cardService.getById(id));
-    }
-
     @GetMapping(value = "/{id}/delete")
     public String deleteCardById(@PathVariable("id") Long id) {
         Card remoteCard = cardService.getById(id);
@@ -55,11 +49,5 @@ public class CardController {
     public String addCard(@PathVariable("count") Long countId) {
             cardService.saveOrUpdate(cardMapper.convertToEntity(cardService.generateNewCard(countId)));
             return "redirect: /bank/api/card/list?id=" + countId;
-    }
-
-    @PostMapping(value = "/edit")
-    public CardDTO updateCard(@RequestBody @Valid CardDTO cardDTO) {
-        cardService.saveOrUpdate(cardMapper.convertToEntity(cardDTO));
-        return cardDTO;
     }
 }

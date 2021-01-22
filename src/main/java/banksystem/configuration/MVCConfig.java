@@ -1,5 +1,6 @@
 package banksystem.configuration;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -15,9 +16,14 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @Configuration
 @ComponentScan(basePackages = {"banksystem"})
 public class MVCConfig extends WebMvcConfigurerAdapter {
+
+    @Value("${storage.path}")
+    String storagePath;
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/**").addResourceLocations("/");
+        registry.addResourceHandler("/storage/**").addResourceLocations("file:" + storagePath + "/");
     }
 
     @Bean

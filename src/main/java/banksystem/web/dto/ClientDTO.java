@@ -62,4 +62,6 @@ public class ClientDTO {
     private List<Count> counts;
 
     private boolean isVerified;
+
+    private String profilePhoto;
 }

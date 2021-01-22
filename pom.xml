@@ -36,6 +36,7 @@
                 <security.expirationToken>604800</security.expirationToken>
                 <verificationSender.email>kirillrusbanksystem@gmail.com</verificationSender.email>
                 <verificationSender.password>pVR-kff-utm-H94</verificationSender.password>
+                <storage.path>D://storage</storage.path>
             </properties>
         </profile>
         <profile>
@@ -58,6 +59,7 @@
                 <security.expirationToken>604800</security.expirationToken>
                 <verificationSender.email>kirillrusbanksystem@gmail.com</verificationSender.email>
                 <verificationSender.password>pVR-kff-utm-H94</verificationSender.password>
+                <storage.path>D:\storage</storage.path>
             </properties>
         </profile>
     </profiles>
@@ -185,6 +187,11 @@
             <artifactId>slf4j-simple</artifactId>
             <version>2.0.0-alpha0</version>
             <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.9</version>
         </dependency>
 
 
