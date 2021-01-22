@@ -15,7 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.validation.Valid;
 import javax.websocket.server.PathParam;
 
 @Controller
@@ -43,13 +42,6 @@ public class CardController {
         return model;
     }
 
-    @ResponseBody
-    @GetMapping(value = "list")
-    public List getCardList() {
-        List cards = cardService.getAll();
-        return cardMapper.convertToDTO(cards);
-    }
-
     @GetMapping(value = "/{id}")
     public CardDTO getCardById(@PathVariable("id") Long id) {
         return cardMapper.convertToDTO(cardService.getById(id));
@@ -69,11 +61,5 @@ public class CardController {
             cardService.saveOrUpdate(cardMapper.convertToEntity(card));
             LOG.info("Client issued the card - " +  card.getNumber());
             return "redirect: /bank/api/card/list?id=" + countId;
-    }
-
-    @PostMapping(value = "/edit")
-    public CardDTO updateCard(@RequestBody @Valid CardDTO cardDTO) {
-        cardService.saveOrUpdate(cardMapper.convertToEntity(cardDTO));
-        return cardDTO;
     }
 }
