@@ -2,6 +2,8 @@ package banksystem.service.sicurity;
 
 import banksystem.service.exception.JwtAuthenticationException;
 import io.jsonwebtoken.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -19,6 +21,8 @@ import java.util.Date;
 
 @Component
 public class JwtTokenProvider {
+
+    private static final Logger LOG = LoggerFactory.getLogger(JwtTokenProvider.class);
 
     private UserDetailsService userDetailsService;
 
@@ -57,6 +61,7 @@ public class JwtTokenProvider {
             Jws<Claims> claimsJws = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
             return !claimsJws.getBody().getExpiration().before(new Date());
         } catch (JwtException | IllegalArgumentException ex) {
+            LOG.warn("JWT token is expired of invalid", ex);
             throw new JwtAuthenticationException("JWT token is expired of invalid", HttpStatus.UNAUTHORIZED);
         }
     }

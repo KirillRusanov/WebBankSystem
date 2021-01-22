@@ -1,6 +1,8 @@
 package banksystem.service.sicurity;
 
 import banksystem.service.exception.JwtAuthenticationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,6 +22,8 @@ public class JwtTokenFilter extends GenericFilterBean {
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
 
+    private static final Logger LOG = LoggerFactory.getLogger(JwtTokenFilter.class);
+
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         String token = jwtTokenProvider.resolveToken((HttpServletRequest) servletRequest);
@@ -32,6 +36,7 @@ public class JwtTokenFilter extends GenericFilterBean {
             }
         } catch (JwtAuthenticationException ex) {
             SecurityContextHolder.clearContext();
+            LOG.warn("JWT Token is expired or invalid", ex);
             throw new JwtAuthenticationException("JWT Token is expired or invalid");
         }
         filterChain.doFilter(servletRequest, servletResponse);

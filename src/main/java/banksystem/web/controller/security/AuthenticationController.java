@@ -11,6 +11,8 @@ import banksystem.web.dto.ClientDTO;
 import banksystem.web.dto.security.AuthenticationClientDTO;
 import banksystem.web.mapper.ClientMapper;
 import org.mapstruct.factory.Mappers;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -49,6 +51,8 @@ public class AuthenticationController {
 
     private ClientMapper clientMapper = Mappers.getMapper(ClientMapper.class);
 
+    private static final Logger LOG = LoggerFactory.getLogger(AuthenticationController.class);
+
 
     @GetMapping("/login")
     public String authenticate(Model model) {
@@ -73,6 +77,7 @@ public class AuthenticationController {
                 cookie.setDomain("localhost");
                 cookie.setPath("/");
                 response.addCookie(cookie);
+                LOG.info("Client \"{}\" logged into the system", client.getUsername());
                 return "redirect: /bank/api/index";
             } catch (AuthenticationException ex) {
                 return "authorizationError";
@@ -112,6 +117,7 @@ public class AuthenticationController {
 
             model.addObject("email", newClient.getEmail());
             model.setViewName("registrationSuccess");
+            LOG.info("Client registered - \"{}\"", newClient.getUsername());
             return model;
         }
     }
@@ -126,6 +132,7 @@ public class AuthenticationController {
             Client client = clientService.getByEmail(token.getClient().getEmail());
             client.setVerified(true);
             clientService.saveOrUpdate(client);
+            LOG.info("Client \"{}\" verified account - ", client.getUsername());
             modelAndView.setViewName("accountVerified");
         }
         else

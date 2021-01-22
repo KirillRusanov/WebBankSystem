@@ -9,6 +9,8 @@ import banksystem.web.dto.CountDTO;
 import banksystem.web.mapper.ClientMapper;
 import banksystem.web.mapper.CountMapper;
 import org.mapstruct.factory.Mappers;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -32,6 +34,8 @@ public class CountController {
 
     private CountMapper countMapper = Mappers.getMapper(CountMapper.class);
 
+    private static final Logger LOG = LoggerFactory.getLogger(CountController.class);
+
     @GetMapping("/list")
     public ModelAndView getPersonalCounts(Authentication authentication, ModelAndView model) {
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
@@ -53,6 +57,7 @@ public class CountController {
             newCount.setClient_id(client);
             newCount.setBalance(0);
             countService.saveOrUpdate(countMapper.convertToEntity(newCount));
+            LOG.info("Client created an account - " + newCount.getNumber());
             return "redirect: /bank/api/count/list";
         }
     }
@@ -61,6 +66,7 @@ public class CountController {
     public String deleteCountById(@PathVariable("id") Long id) {
         Count remoteCount = countService.getById(id);
         countService.delete(remoteCount);
+        LOG.info("Client deleted an account - " + remoteCount.getNumber());
         return "redirect: /bank/api/count/list";
     }
 }
