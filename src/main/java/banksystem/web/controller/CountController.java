@@ -4,7 +4,6 @@ import banksystem.dao.model.Client;
 import banksystem.dao.model.Count;
 import banksystem.service.ClientService;
 import banksystem.service.CountService;
-import banksystem.web.dto.CardDTO;
 import banksystem.web.dto.ClientDTO;
 import banksystem.web.dto.CountDTO;
 import banksystem.web.mapper.ClientMapper;
@@ -41,10 +40,10 @@ public class CountController {
     public ModelAndView getPersonalCounts(Authentication authentication, ModelAndView model) {
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             ClientDTO client = clientMapper.convertToDTO(clientService.getByUsername(userDetails.getUsername()));
-            model.addObject("countList", client.getCounts());
-            model.setViewName("showPersonalCounts");
             model.addObject("count", new CountDTO());
-        return model;
+            model.addObject("client", client);
+            model.setViewName("showPersonalCounts");
+            return model;
     }
 
     @PostMapping("/create")
@@ -61,15 +60,6 @@ public class CountController {
             LOG.info("Client created an account - " + newCount.getNumber());
             return "redirect: /bank/api/count/list";
         }
-    }
-
-    @GetMapping(value = "/{id}")
-    public ModelAndView getCountById(@PathVariable("id") Long id, ModelAndView model) {
-        CountDTO count = countMapper.convertToDTO(countService.getById(id));
-        model.addObject("cardList", count.getCards());
-        model.addObject("card", new CardDTO());
-        model.setViewName("showPersonalCards");
-        return model;
     }
 
     @GetMapping(value = "/{id}/delete")

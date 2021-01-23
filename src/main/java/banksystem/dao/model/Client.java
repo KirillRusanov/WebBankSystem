@@ -64,6 +64,9 @@ public class Client implements UserDetails {
     @Column(name = "isVerified", nullable = false)
     private boolean isVerified;
 
+    @Column(name = "profilePhoto")
+    private String profilePhoto;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;

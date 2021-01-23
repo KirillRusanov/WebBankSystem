@@ -42,11 +42,6 @@ public class CardController {
         return model;
     }
 
-    @GetMapping(value = "/{id}")
-    public CardDTO getCardById(@PathVariable("id") Long id) {
-        return cardMapper.convertToDTO(cardService.getById(id));
-    }
-
     @GetMapping(value = "/{id}/delete")
     public String deleteCardById(@PathVariable("id") Long id) {
         Card remoteCard = cardService.getById(id);

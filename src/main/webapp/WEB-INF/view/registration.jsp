@@ -31,10 +31,10 @@
                 <a class="nav-link" href="#">About us</a>
             </li>
             <div class="btn-group">
-                <button id="profile" type="button" class="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button id="profile" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 </button>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Profile</a>
+                    <a class="dropdown-item" href="/bank/api/client/profile">Profile</a>
                     <a class="dropdown-item" href="/bank/api/auth/registration">Sign up</a>
                     <a class="dropdown-item" href="/bank/api/auth/login">Sign in</a>
                     <div class="dropdown-divider"></div>

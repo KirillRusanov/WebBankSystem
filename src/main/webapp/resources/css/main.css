@@ -131,3 +131,19 @@ body {
     padding-top:30px;
     padding-bottom: 30px;
 }
+.profile {
+    margin: 3% 22%;
+    background-color: #636464;
+    border-radius: 75px;
+    border-color: #fdfdfe;
+
+}
+.photo-place {
+    padding-top: 4%;
+    text-align: center;
+}
+.profile-information {
+    font-size: 18px;
+    padding-left: 5%;
+    padding-bottom: 4%;
+}
