@@ -63,6 +63,6 @@ public class ClientController {
             model.addObject("client", client);
             fileService.upload(image, client);
         }
-        return new ModelAndView("redirect: /bank/api/client/profile");
+        return new ModelAndView("redirect:/api/client/profile");
     }
 }

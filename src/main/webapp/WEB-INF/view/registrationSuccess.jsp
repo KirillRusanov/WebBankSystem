@@ -11,7 +11,7 @@
     <h4 class="alert-heading">You have successfully registered</h4>
     <p>A verification email has been sent to: "${email}"</p>
     <hr>
-    <p class="mb-0"><a class="alert-link" href="/bank/api/auth/login">Go to authorization!</a></p>
+    <p class="mb-0"><a class="alert-link" href="/api/auth/login">Go to authorization!</a></p>
 </div>
 </body>
 </html>

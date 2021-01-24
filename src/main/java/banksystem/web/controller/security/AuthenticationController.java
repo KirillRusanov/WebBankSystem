@@ -78,7 +78,7 @@ public class AuthenticationController {
                 cookie.setPath("/");
                 response.addCookie(cookie);
                 LOG.info("Client \"{}\" logged into the system", client.getUsername());
-                return "redirect: /bank/api/index";
+                return "redirect:/api/index";
             } catch (AuthenticationException ex) {
                 return "authorizationError";
             }

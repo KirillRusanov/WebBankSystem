@@ -16,13 +16,13 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
             <li class="nav-item active">
-                <a class="nav-link" href="/bank/api/index">Home</a>
+                <a class="nav-link" href="/api/index">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/bank/api/client/list">Clients</a>
+                <a class="nav-link" href="/api/client/list">Clients</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/bank/api/count/list">Your counts</a>
+                <a class="nav-link" href="/api/count/list">Your counts</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Contacts</a>
@@ -34,11 +34,11 @@
                 <button id="profile" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 </button>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="/bank/api/client/profile">Profile</a>
-                    <a class="dropdown-item" href="/bank/api/auth/registration">Sign up</a>
-                    <a class="dropdown-item" href="/bank/api/auth/login">Sign in</a>
+                    <a class="dropdown-item" href="/api/client/profile">Profile</a>
+                    <a class="dropdown-item" href="/api/auth/registration">Sign up</a>
+                    <a class="dropdown-item" href="/api/auth/login">Sign in</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/bank/api/auth/logout">Logout</a>
+                    <a class="dropdown-item" href="/api/auth/logout">Logout</a>
                 </div>
             </div>
         </ul>
@@ -50,7 +50,7 @@
 <div class="create-count">
     <h2 class="display-5">Active accounts: </h2>
     <div class="create-menu">
-        <form:form action="/bank/api/count/create" method="POST" modelAttribute="count">
+        <form:form action="/api/count/create" method="POST" modelAttribute="count">
             <form:input path="number" type="text" class="form-control" placeholder="count number"/>
             <form:errors path="number" cssClass="text-danger"/>
 
@@ -73,8 +73,8 @@
                         <h5 class="card-title">Account: *${count.number}</h5>
                         <p class="card-text">Currency: ${count.currency} | Cards: ${count.cards.size()}</p>
                         <p class="card-text">Balance: ${count.balance} </p>
-                        <a href="/bank/api/card/list?id=${count.id}" class="btn btn-dark">cards</a>
-                        <a href="/bank/api/count/${count.id}/delete" class="btn btn-dark">close</a>
+                        <a href="/api/card/list?id=${count.id}" class="btn btn-dark">cards</a>
+                        <a href="/api/count/${count.id}/delete" class="btn btn-dark">close</a>
                     </div>
                 </div>
             </div>

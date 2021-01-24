@@ -16,13 +16,13 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
             <li class="nav-item active">
-                <a class="nav-link" href="/bank/api/index">Home</a>
+                <a class="nav-link" href="/api/index">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/bank/api/client/list">Clients</a>
+                <a class="nav-link" href="/api/client/list">Clients</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/bank/api/count/list">Your counts</a>
+                <a class="nav-link" href="/api/count/list">Your counts</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Contacts</a>
@@ -34,11 +34,11 @@
                 <button id="profile" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 </button>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="/bank/api/client/profile">Profile</a>
-                    <a class="dropdown-item" href="/bank/api/auth/registration">Sign up</a>
-                    <a class="dropdown-item" href="/bank/api/auth/login">Sign in</a>
+                    <a class="dropdown-item" href="/api/client/profile">Profile</a>
+                    <a class="dropdown-item" href="/api/auth/registration">Sign up</a>
+                    <a class="dropdown-item" href="/api/auth/login">Sign in</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/bank/api/auth/logout">Logout</a>
+                    <a class="dropdown-item" href="/api/auth/logout">Logout</a>
                 </div>
             </div>
         </ul>
@@ -48,7 +48,7 @@
     <div class="main_auth">
         <h1 class="display-2">Authorization</h1>
         <div class="mx-auto border my-5 py-3 px-3 form">
-            <form:form action="/bank/api/auth/login" method="POST" modelAttribute="client">
+            <form:form action="/api/auth/login" method="POST" modelAttribute="client">
                 <div class="mb-3">
                     <form:label path="username" class="form-label">Username:</form:label>
                     <form:input path="username" type="text" class="form-control"/>

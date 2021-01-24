@@ -11,7 +11,7 @@
     <h4 class="alert-heading">Success Logout</h4>
     <p>You have successfully logged out of your account</p>
     <hr>
-    <p class="mb-0"><a class="alert-link" href="/bank/api/index">Back to home page!</a></p>
+    <p class="mb-0"><a class="alert-link" href="/api/index">Back to home page!</a></p>
 </div>
 </body>
 </html>

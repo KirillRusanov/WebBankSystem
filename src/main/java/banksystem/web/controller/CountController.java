@@ -58,7 +58,7 @@ public class CountController {
             newCount.setBalance(0);
             countService.saveOrUpdate(countMapper.convertToEntity(newCount));
             LOG.info("Client created an account - " + newCount.getNumber());
-            return "redirect: /bank/api/count/list";
+            return "redirect:/api/count/list";
         }
     }
 
@@ -67,6 +67,6 @@ public class CountController {
         Count remoteCount = countService.getById(id);
         countService.delete(remoteCount);
         LOG.info("Client deleted an account - " + remoteCount.getNumber());
-        return "redirect: /bank/api/count/list";
+        return "redirect:/api/count/list";
     }
 }

@@ -47,7 +47,7 @@ public class CardController {
         Card remoteCard = cardService.getById(id);
         cardService.delete(remoteCard);
         LOG.info("Client closed the card - " +  remoteCard.getNumber());
-        return "redirect: /bank/api/card/list?id=" + remoteCard.getCount().getId();
+        return "redirect:/api/card/list?id=" + remoteCard.getCount().getId();
     }
 
     @GetMapping(value = "{count}/create")
@@ -55,6 +55,6 @@ public class CardController {
             CardDTO card = cardService.generateNewCard(countId);
             cardService.saveOrUpdate(cardMapper.convertToEntity(card));
             LOG.info("Client issued the card - " +  card.getNumber());
-            return "redirect: /bank/api/card/list?id=" + countId;
+            return "redirect:/api/card/list?id=" + countId;
     }
 }

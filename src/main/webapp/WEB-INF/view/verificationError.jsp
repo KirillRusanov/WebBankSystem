@@ -12,7 +12,7 @@
     <p>Try to verify your account a little later</p>
     <p>${message}</p>
     <hr>
-    <p class="mb-0"><a class="alert-link" href="/bank/api/index">Go to menu!</a></p>
+    <p class="mb-0"><a class="alert-link" href="/api/index">Go to menu!</a></p>
 </div>
 </body>
 </html>

@@ -16,13 +16,13 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
             <li class="nav-item active">
-                <a class="nav-link" href="/bank/api/index">Home</a>
+                <a class="nav-link" href="/api/index">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/bank/api/client/list">Clients</a>
+                <a class="nav-link" href="/api/client/list">Clients</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/bank/api/count/list">Your counts</a>
+                <a class="nav-link" href="/api/count/list">Your counts</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Contacts</a>
@@ -34,11 +34,11 @@
                 <button id="profile" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 </button>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="/bank/api/client/profile">Profile</a>
-                    <a class="dropdown-item" href="/bank/api/auth/registration">Sign up</a>
-                    <a class="dropdown-item" href="/bank/api/auth/login">Sign in</a>
+                    <a class="dropdown-item" href="/api/client/profile">Profile</a>
+                    <a class="dropdown-item" href="/api/auth/registration">Sign up</a>
+                    <a class="dropdown-item" href="/api/auth/login">Sign in</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/bank/api/auth/logout">Logout</a>
+                    <a class="dropdown-item" href="/api/auth/logout">Logout</a>
                 </div>
             </div>
         </ul>
@@ -49,7 +49,7 @@
         <div class="photo-place">
             <img src="<c:url value="/storage/${client.profilePhoto}"/>" width="220" height="220" style="border-radius: 150px"/>
             <div class="form">
-                <form method="POST" enctype="multipart/form-data" action="/bank/api/client/upload-photo">
+                <form method="POST" enctype="multipart/form-data" action="/api/client/upload-photo">
                     <input class="btn-dark" type="submit" value="Upload new photo"/><br>
                     <input class="btn-dark" type="file" name="file"/>
                 </form>

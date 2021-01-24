@@ -34,20 +34,20 @@ public class ApplicationConfig {
         return new PropertySourcesPlaceholderConfigurer();
     }
 
-    @Value("${database.driver}")
+    @Value("${spring.datasource.driver-class-name}")
     String driverDatabase;
-    @Value("${database.url}")
+    @Value("${spring.datasource.url}")
     String urlDatabase;
-    @Value("${database.username}")
+    @Value("${spring.datasource.username}")
     String usernameDatabase;
-    @Value("${database.password}")
+    @Value("${spring.datasource.password}")
     String passwordDatabase;
-    @Value("${changeLogFile}")
+    @Value("${spring.liquibase.change-log}")
     String changeLogFile;
 
-    @Value("${verificationSender.email}")
+    @Value("${spring.mail.username}")
     String senderEmail;
-    @Value("${verificationSender.password}")
+    @Value("${spring.mail.password}")
     String senderPassword;
 
     @Bean
