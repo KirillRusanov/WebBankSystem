@@ -2,6 +2,7 @@ package banksystem.service;
 
 import banksystem.dao.model.Card;
 import banksystem.dao.repository.CardRepository;
+import banksystem.dao.utils.LuhnAlgorithmUtil;
 import banksystem.web.dto.CardDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,6 +33,10 @@ public class CardService {
         return repository.getById(id);
     }
 
+    public Card getByNumber(String number) {
+        return repository.findByNumber(number);
+    }
+
     public List<Card> getAll() {
         return (List<Card>) repository.findAll();
     }
@@ -45,6 +50,7 @@ public class CardService {
 
         String number = "400000";
         number = number.concat(String.valueOf(new Random().nextInt(10_0000_0000 - 10_0000_000 + 1) + 10_0000_000));
+        number = number.concat(String.valueOf(LuhnAlgorithmUtil.setAlgorithm(number)));
 
         newCard.setCount(countService.getById(countId));
         newCard.setPin(String.valueOf(new Random().nextInt(10000 - 1000 + 1) + 1000));

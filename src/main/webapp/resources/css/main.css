@@ -147,3 +147,14 @@ body {
     padding-left: 5%;
     padding-bottom: 4%;
 }
+.transfer-workplace {
+    background-color: #636464;
+    border-radius: 50px;
+    margin-top: 4%;
+    margin-left: 35%;
+    margin-right: 35%;
+    padding: 3% 7%;
+}
+.transfer-header {
+    padding-bottom: 2%;
+}
