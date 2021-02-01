@@ -1,3 +1,4 @@
+<%@ page import="banksystem.dao.repository.TransferRepository" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib  uri="http://www.springframework.org/tags/form" prefix="form"%>
@@ -64,6 +65,11 @@
         <p class="text-white">Phone number: ${client.phoneNumber}</p>
         <p class="text-white">Passport number: ${client.passNumber}</p>
         <p class="text-white">Birth Date: ${client.birthday}</p>
+            <br>
+            <h6 class="display-5">History of transfers:</h6>
+            <c:forEach var="transfer" items="${transferList}" varStatus="status">
+                    <p class="text-white">From your card |${transfer.fromCard}| to |${transfer.toCard}| - | $ ${transfer.amount}</p>
+            </c:forEach>
         </div>
     </div>
 </section>
