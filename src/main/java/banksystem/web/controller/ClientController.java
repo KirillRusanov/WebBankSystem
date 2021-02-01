@@ -1,8 +1,12 @@
 package banksystem.web.controller;
 
+import banksystem.dao.model.Card;
+import banksystem.dao.model.Count;
+import banksystem.dao.model.Transfer;
 import banksystem.service.FileService;
 import banksystem.dao.model.Client;
 import banksystem.service.ClientService;
+import banksystem.service.TransferService;
 import banksystem.web.dto.ClientDTO;
 import banksystem.web.mapper.ClientMapper;
 import org.mapstruct.factory.Mappers;
@@ -15,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -26,6 +31,8 @@ public class ClientController {
     private ClientService clientService;
     @Autowired
     private FileService fileService;
+    @Autowired
+    private TransferService transferService;
 
     private ClientMapper clientMapper = Mappers.getMapper(ClientMapper.class);
 
@@ -50,6 +57,14 @@ public class ClientController {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         ClientDTO client = clientMapper.convertToDTO(clientService.getByUsername(userDetails.getUsername()));
         model.addObject("client", client);
+        List<Count> counts = client.getCounts();
+        List<Transfer> transfers = new ArrayList<>();
+        for(Count count : counts) {
+            for (Card card : count.getCards()) {
+                transfers.addAll(transferService.getAllByFromCard(card.getNumber()));
+            }
+        }
+        model.addObject("transferList", transfers);
         model.setViewName("profile");
         return model;
     }

@@ -28,4 +28,8 @@ public class TransferService {
     public List<Transfer> getAll() {
         return (List<Transfer>) repository.findAll();
     }
+
+    public List<Transfer> getAllByFromCard(String fromCard) {
+        return repository.getAllByFromCard(fromCard);
+    }
 }
