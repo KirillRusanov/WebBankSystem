@@ -1,0 +1,160 @@
+table {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif, serif;
+    font-size: 14px;
+    text-align: left;
+    border-collapse: collapse;
+    border-radius: 20px;
+    box-shadow: 0 0 0 10px #ffffff;
+    color: #452F21;
+}
+th {
+    padding: 10px 8px;
+    background: white;
+}
+table th:first-child {
+    border-top-left-radius: 20px;
+}
+table th:last-child {
+    border-top-right-radius: 20px;
+}
+td {
+    color: #fdfdfe;
+    border-top: 10px solid #C5DDE8;
+    padding: 8px;
+    background: #636464;
+}
+
+a {
+    color: #ffffff;
+    outline: none !important;
+    font-weight: bold;
+}
+.my_button {
+    padding-top: 10px;
+    text-align: center;
+}
+.main_auth {
+    padding-left: 27%;
+    padding-right: 27%;
+    padding-top: 2%;
+    color: #ffffff;
+}
+.border {
+    background: linear-gradient(45deg, #636464, #C5DDE8);
+    border-radius: 7px;
+}
+.display-2 {
+    text-align: center;
+    color: #ffffff;
+}
+
+.navbar-nav {
+    padding-left: 16%;
+    list-style:none;
+}
+.navbar-nav li {
+    border-right: 1px solid #ffffff;
+}
+.navbar-nav li:last-child {
+    border-right: none
+}
+
+.navbar-brand {
+    padding-left: 3%;
+    color: #636464;
+}
+.nav-item {
+    padding-right: 30px;
+    padding-left: 30px;
+    border: #bacbe6;
+}
+.alert {
+    text-align: center;
+    padding: 50px;
+    position: fixed; top: 50%; left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+body {
+    background-color: #000;
+    background-image: url("../../resources/image/bank.jpg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+#profile {
+    background-image: url("../../resources/image/profile.png") ;
+    background-size: 100%;
+    width: 32px;
+    height: 32px;
+    border-radius: 100px;
+    margin-left:20px;
+    margin-top:5px
+}
+.counts {
+   margin-left:10%;
+    margin-right: 10%;
+}
+.card-body {
+    text-align: center;
+}
+.card {
+    background: #C5DDE8;
+    margin-bottom: 6%;
+}
+.create-count {
+    padding-top: 25px;
+    display: flex;
+    margin-left: 8%;
+    margin-bottom:2%;
+}
+.display-5 {
+    color: #ffffff;
+}
+.count-workplace {
+    background-color: #636464;
+    border-radius: 50px;
+    margin-top: 4%;
+    margin-left: 12%;
+    margin-right: 12%;
+    padding-bottom: 5%;
+}
+.workplace-header {
+    display: flex;
+    margin-left: 4%
+}
+.create-menu {
+    margin-left: 70px;
+    width: 320px;
+}
+.panel {
+    padding-top:30px;
+    padding-bottom: 30px;
+}
+.profile {
+    margin: 3% 22%;
+    background-color: #636464;
+    border-radius: 75px;
+    border-color: #fdfdfe;
+
+}
+.photo-place {
+    padding-top: 4%;
+    text-align: center;
+}
+.profile-information {
+    font-size: 18px;
+    padding-left: 5%;
+    padding-bottom: 4%;
+}
+.transfer-workplace {
+    background-color: #636464;
+    border-radius: 50px;
+    margin-top: 4%;
+    margin-left: 35%;
+    margin-right: 35%;
+    padding: 3% 7%;
+}
+.transfer-header {
+    padding-bottom: 2%;
+}

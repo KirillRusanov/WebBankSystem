@@ -7,79 +7,264 @@
     <groupId>Web.BankSystem</groupId>
     <artifactId>Web.BankSystem</artifactId>
     <version>1.0</version>
+    <packaging>war</packaging>
+    <name>webapp</name>
 
     <properties>
-        <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <spring.version>5.2.1.RELEASE</spring.version>
+        <jackson.version>2.11.3</jackson.version>
+        <hibernate.version>5.4.22.Final</hibernate.version>
+        <slf4j.version>2.0.0-alpha0</slf4j.version>
     </properties>
 
     <profiles>
         <profile>
-            <id>Kir</id>
+            <id>devKR</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <properties>
-                <db.driverClass>com.mysql.jdbc.Driver</db.driverClass>
-                <db.jdbcUrl>jdbc:mysql://localhost:3306/banksystem</db.jdbcUrl>
-                <db.user>root</db.user>
+                <db.driverClassName>com.mysql.cj.jdbc.Driver</db.driverClassName>
+                <db.url>jdbc:mysql://localhost:3306/banksystem?serverTimezone=UTC</db.url>
+                <db.username>root</db.username>
                 <db.password>maloi-26</db.password>
+                <import.path>import.json</import.path>
+                <export.filename>export.json</export.filename>
+                <jwt.header>Authorization</jwt.header>
+                <security.secretKey>intexsoft</security.secretKey>
+                <security.expirationToken>604800</security.expirationToken>
+                <verificationSender.email>kirillrusbanksystem@gmail.com</verificationSender.email>
+                <verificationSender.password>pVR-kff-utm-H94</verificationSender.password>
+                <logging.pathLogFile>D:\\</logging.pathLogFile>
+                <storage.path>D://storage</storage.path>
             </properties>
         </profile>
         <profile>
-            <id>Rom</id>
+            <id>devRM</id>
+            <activation>
+                <property>
+                    <name>env</name>
+                    <value>prod</value>
+                </property>
+            </activation>
             <properties>
-                <db.driverClass>com.mysql.jdbc.Driver</db.driverClass>
-                <db.jdbcUrl>jdbc:mysql://localhost:3305</db.jdbcUrl>
-                <db.user>root</db.user>
-                <db.password>maloi-22</db.password>
+                <db.driverClassName>com.mysql.cj.jdbc.Driver</db.driverClassName>
+                <db.url>jdbc:mysql://live01:3306/prod</db.url>
+                <db.username>mkyong</db.username>
+                <db.password>8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92</db.password>
+                <import.path>import.json</import.path>
+                <export.filename>file.json</export.filename>
+                <jwt.header>Authorization</jwt.header>
+                <security.secretKey>intexsoft</security.secretKey>
+                <security.expirationToken>604800</security.expirationToken>
+                <verificationSender.email>kirillrusbanksystem@gmail.com</verificationSender.email>
+                <verificationSender.password>pVR-kff-utm-H94</verificationSender.password>
+                <storage.path>D:\storage</storage.path>
+                <logging.pathLogFile>D:\\</logging.pathLogFile>
             </properties>
         </profile>
     </profiles>
 
-    <build>
-        <finalName>${project.artifactId}</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>2.6</version>
-                <configuration>
-                    <warName>${project.artifactId}</warName>
-                    <webResources>
-                        <resource>
-                            <filtering>true</filtering> <!-- THIS IS IMPORTANT! It tells maven to replace your variables with the properties values -->
-                            <directory>src/main/resources/</directory>
-                            <includes>
-                                <include>**/hibernate.cfg.xml</include> <!-- the path to hibernate.cfg.xml -->
-                            </includes>
-                        </resource>
-                    </webResources>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
     <dependencies>
+        <!-- SPRING -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>2.4.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.1</version>
+        </dependency>
+
+        <!-- Apache Commons FileUpload -->
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.3.2</version>
+        </dependency>
+
+        <!-- HIBERNATE and Java API    -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>5.4.22.Final</version>
+            <version>${hibernate.version}</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-            <version>4.1.7.Final</version>
+            <version>${hibernate.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>6.1.5.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>7.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
+
+        <!-- DataBase -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.22</version>
         </dependency>
         <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>4.2.0</version>
+        </dependency>
+
+        <!-- Utils -->
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.16</version>
+            <version>1.18.12</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.13.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>1.3.1.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.9</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+            <version>1.6.2</version>
+        </dependency>
+
+        <!-- Jackson JSON Mapper -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.5.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>1.18.12</version>
+                        </path>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>1.3.1.Final</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+        </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+    </build>
+
 </project>
