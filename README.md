@@ -6,7 +6,7 @@ operations: paying an invoice, withdrawing cash, transfers, etc.
 </p>
 <p>
 There is an access control system. To have access, 
-you need to register / authorize / stages of verification. 
+you need to register / authorize / verification stages. 
 The user is given the opportunity to view the profile,
 where it is possible to install a photo and see the translation history.
 There is a system for managing accounts and cards .
